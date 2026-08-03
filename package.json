@@ -2,11 +2,11 @@
   "name": "trigo.js",
   "version": "1.0.0",
   "description": "The most powerful, most customizable web trigger library ever built.",
-  "main": "trigo.js",
-  "module": "trigo.js",
+  "type": "module",
+  "main": "trigo.min.js",
+  "module": "trigo.min.js",
   "files": [
     "src/",
-    "trigo.js",
     "trigo.min.js",
     "index.html",
     "README.md"
