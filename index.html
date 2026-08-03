@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Trigo.js — The Most Powerful Web Trigger Library</title>
+  <link rel="icon" type="image/png" href="./trigo.png">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1a1a24;
+      --border: #252530;
+      --text: #e0e0e0;
+      --text2: #8888a0;
+      --accent: #7c3aed;
+      --accent2: #a78bfa;
+      --green: #10b981;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --blue: #3b82f6;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.5));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent2), var(--accent), #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      color: var(--text2);
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text2);
+      margin: 4px;
+    }
+
+    .badges {
+      margin-top: 15px;
+    }
+
+    .section {
+      margin: 40px 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title .icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface2);
+      border-radius: 8px;
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      color: var(--text2);
+      font-size: 0.8rem;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      color: white;
+      text-decoration: none;
+      margin: 3px;
+    }
+
+    .btn-accent { background: var(--accent); }
+    .btn-accent:hover { background: #6d28d9; transform: translateY(-1px); }
+    .btn-green { background: var(--green); }
+    .btn-green:hover { background: #059669; transform: translateY(-1px); }
+    .btn-red { background: var(--red); }
+    .btn-red:hover { background: #dc2626; transform: translateY(-1px); }
+    .btn-yellow { background: var(--yellow); color: #000; }
+    .btn-yellow:hover { background: #d97706; transform: translateY(-1px); }
+    .btn-blue { background: var(--blue); }
+    .btn-blue:hover { background: #2563eb; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent2);
+    }
+
+    .demo-box {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      text-align: center;
+      margin-top: 16px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .log-area {
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 0.8rem;
+      color: var(--green);
+      line-height: 1.6;
+    }
+
+    .log-entry {
+      padding: 2px 0;
+    }
+
+    .log-entry.warn { color: var(--yellow); }
+    .log-entry.error { color: var(--red); }
+    .log-entry.info { color: var(--blue); }
+
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      animation: slideIn 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text2);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .grid { grid-template-columns: 1fr; }
+      header { padding: 40px 20px 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="container">
+
+    <header>
+      <img src="./trigo.png" alt="Trigo.js" class="logo" id="logo">
+      <h1>Trigo.js</h1>
+      <p class="subtitle">The Most Powerful, Most Customizable Web Trigger Library</p>
+      <div class="badges">
+        <span class="badge">483+ Triggers</span>
+        <span class="badge">Mobile & Desktop</span>
+        <span class="badge">Zero Dependencies</span>
+        <span class="badge">v1.0.0</span>
+      </div>
+    </header>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">📱</span> Device Triggers</div>
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-title">📳 Vibration</div>
+          <div class="card-desc">Vibrate, pulse pattern, SOS, heartbeat</div>
+          <button class="btn btn-accent" onclick="demoVibrate()">Vibrate 200ms</button>
+          <button class="btn btn-outline" onclick="demoVibrateSOS()">SOS</button>
+          <button class="btn btn-outline" onclick="demoVibrateHeartbeat()">💓</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔦 Flashlight</div>
+          <div class="card-desc">Toggle, blink, strobe, morse, breathe</div>
+          <button class="btn btn-yellow" onclick="demoFlashlightToggle()">Toggle</button>
+          <button class="btn btn-outline" onclick="demoFlashlightBlink()">Blink</button>
+          <button class="btn btn-outline" onclick="demoFlashlightSOS()">SOS</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📸 Camera</div>
+          <div class="card-desc">Open, capture, record, scan QR</div>
+          <button class="btn btn-blue" onclick="demoCameraOpen()">Open Camera</button>
+          <button class="btn btn-outline" onclick="demoCameraCapture()">Capture</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🎤 Microphone</div>
+          <div class="card-desc">Record audio, stream, level meter</div>
+          <button class="btn btn-accent" onclick="demoMicRecord()">Record 3s</button>
+          <button class="btn btn-outline" onclick="demoMicLevel()">Check Level</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📍 Location</div>
+          <div class="card-desc">Get position, watch, speed, heading</div>
+          <button class="btn btn-green" onclick="demoLocation()">Get Location</button>
+          <button class="btn btn-outline" onclick="demoSpeed()">Get Speed</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📋 Clipboard</div>
+          <div class="card-desc">Copy text, paste, clear</div>
+          <button class="btn btn-blue" onclick="demoClipboard()">Copy Text</button>
+          <button class="btn btn-outline" onclick="demoClipboardPaste()">Paste</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📤 Share</div>
+          <div class="card-desc">Native share sheet, URL, text, files</div>
+          <button class="btn btn-accent" onclick="demoShare()">Share URL</button>
+          <button class="btn btn-outline" onclick="demoShareText()">Share Text</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔔 Notifications</div>
+          <div class="card-desc">Push, schedule, badge, interactive</div>
+          <button class="btn btn-green" onclick="demoNotify()">Notify Me</button>
+          <button class="btn btn-outline" onclick="demoNotifySchedule()">In 5s</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📞 Call / SMS / Email</div>
+          <div class="card-desc">Trigger native communication apps</div>
+          <button class="btn btn-blue" onclick="demoSMS()">SMS</button>
+          <button class="btn btn-outline" onclick="demoEmail()">Email</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🖥️ Fullscreen</div>
+          <div class="card-desc">Enter, exit, toggle fullscreen</div>
+          <button class="btn btn-accent" onclick="demoFullscreen()">Fullscreen</button>
+          <button class="btn btn-outline" onclick="demoFullscreenExit()">Exit</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🎬</span> Visual Triggers</div>
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-title">🌫️ Fade</div>
+          <div class="card-desc">Fade in, out, toggle, to custom opacity</div>
+          <button class="btn btn-accent" onclick="demoFadeIn()">Fade In</button>
+          <button class="btn btn-outline" onclick="demoFadeOut()">Fade Out</button>
+          <button class="btn btn-outline" onclick="demoFadeToggle()">Toggle</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">👁️ Blink / Flash</div>
+          <div class="card-desc">Blink element, flash background</div>
+          <button class="btn btn-yellow" onclick="demoBlink()">Blink</button>
+          <button class="btn btn-outline" onclick="demoFlash()">Flash</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">💫 Pulse / Glow</div>
+          <div class="card-desc">Scale pulse, box-shadow glow</div>
+          <button class="btn btn-accent" onclick="demoPulse()">Pulse</button>
+          <button class="btn btn-outline" onclick="demoGlow()">Glow</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🪨 Shake / Bounce</div>
+          <div class="card-desc">Shake horizontally, bounce vertically</div>
+          <button class="btn btn-red" onclick="demoShake()">Shake</button>
+          <button class="btn btn-outline" onclick="demoBounce()">Bounce</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📐 Slide</div>
+          <div class="card-desc">Slide in, out, toggle from any direction</div>
+          <button class="btn btn-blue" onclick="demoSlideIn()">Slide In</button>
+          <button class="btn btn-outline" onclick="demoSlideOut()">Slide Out</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔍 Zoom / Spin</div>
+          <div class="card-desc">Zoom in/out, continuous spin</div>
+          <button class="btn btn-accent" onclick="demoZoomIn()">Zoom In</button>
+          <button class="btn btn-outline" onclick="demoSpin()">Spin</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">👀 Reveal</div>
+          <div class="card-desc">Animate elements on scroll into view</div>
+          <button class="btn btn-green" onclick="demoReveal()">Reveal Setup</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🌈 Holographic</div>
+          <div class="card-desc">3D tilt, glare, color shift on hover</div>
+          <button class="btn btn-accent" onclick="demoHolographic()">Activate</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">💧 Ripple</div>
+          <div class="card-desc">Material design ripple on click</div>
+          <button class="btn btn-blue" onclick="demoRipple()">Enable Ripple</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">⌨️ Typewriter</div>
+          <div class="card-desc">Type text character by character</div>
+          <button class="btn btn-accent" onclick="demoTypewriter()">Type Text</button>
+          <button class="btn btn-outline" onclick="demoScramble()">Scramble</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🎨 Gradient</div>
+          <div class="card-desc">Animated color gradient background</div>
+          <button class="btn btn-accent" onclick="demoGradient()">Animate</button>
+          <button class="btn btn-outline" onclick="demoParallax()">Parallax</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🎨</span> Canvas Effects</div>
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-title">🎉 Confetti</div>
+          <div class="card-desc">Celebration confetti burst</div>
+          <button class="btn btn-yellow" onclick="demoConfetti()">Launch!</button>
+          <button class="btn btn-outline" onclick="demoConfettiBurst()">Burst x3</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">✨ Particles</div>
+          <div class="card-desc">Interactive floating particle network</div>
+          <button class="btn btn-accent" onclick="demoParticles()">Start</button>
+          <button class="btn btn-outline" onclick="demoParticlesStop()">Stop</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">❄️ Snow</div>
+          <div class="card-desc">Falling snow effect</div>
+          <button class="btn btn-blue" onclick="demoSnow()">Let it Snow</button>
+          <button class="btn btn-outline" onclick="demoSnowStop()">Stop</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔥 Fire</div>
+          <div class="card-desc">Realistic fire particle effect</div>
+          <button class="btn btn-red" onclick="demoFire()">Ignite</button>
+          <button class="btn btn-outline" onclick="demoFireStop()">Extinguish</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🔊</span> Audio Triggers</div>
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-title">🗣️ Speech</div>
+          <div class="card-desc">Text-to-speech synthesis</div>
+          <button class="btn btn-accent" onclick="demoSpeak()">Speak</button>
+          <button class="btn btn-outline" onclick="demoSpeakStop()">Stop</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🎙️ Listen</div>
+          <div class="card-desc">Speech recognition, voice commands</div>
+          <button class="btn btn-green" onclick="demoListen()">Start Listening</button>
+          <button class="btn btn-outline" onclick="demoListenStop()">Stop</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔊 Beep</div>
+          <div class="card-desc">Generate audio beeps, patterns</div>
+          <button class="btn btn-blue" onclick="demoBeep()">Beep 800Hz</button>
+          <button class="btn btn-outline" onclick="demoBeepMelody()">Melody</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🧪</span> Live Demo Area</div>
+      <div class="demo-box" id="demoBox">
+        👆 Click me — I respond to visual triggers!
+      </div>
+      <div class="log-area" id="logArea">
+        <div class="log-entry info">[Trigo] Ready. All 483+ triggers loaded.</div>
+        <div class="log-entry">[Trigo] Device: <span id="deviceInfo">Detecting...</span></div>
+        <div class="log-entry">[Trigo] Click any button to test triggers.</div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Built with <strong>Trigo.js</strong> — The Most Powerful Web Trigger Library</p>
+      <p>483+ Triggers | Mobile & Desktop | Zero Dependencies</p>
+    </footer>
+
+  </div>
+
+  <script type="module">
+    import trigo from './trigo.js';
+
+    window.trigo = trigo;
+
+    function addLog(message, type = '') {
+      const logArea = document.getElementById('logArea');
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logArea.appendChild(entry);
+      logArea.scrollTop = logArea.scrollHeight;
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 2500);
+    }
+
+    document.getElementById('deviceInfo').textContent = JSON.stringify(trigo.device.info());
+
+    window.demoVibrate = () => {
+      trigo.vibrate(200, { log: 'debug' });
+      addLog('📳 Vibrate 200ms triggered', 'info');
+      showToast('Vibrating...');
+    };
+
+    window.demoVibrateSOS = () => {
+      trigo.vibrate.sos();
+      addLog('📳 Vibrate SOS triggered', 'info');
+    };
+
+    window.demoVibrateHeartbeat = () => {
+      trigo.vibrate.heartbeat();
+      addLog('📳 Vibrate Heartbeat triggered', 'info');
+    };
+
+    window.demoFlashlightToggle = () => {
+      trigo.flashlight.toggle({ log: 'debug' });
+      addLog('🔦 Flashlight toggled', 'info');
+    };
+
+    window.demoFlashlightBlink = () => {
+      trigo.flashlight.blink({ count: 5, interval: 200 });
+      addLog('🔦 Flashlight blinking 5 times', 'info');
+    };
+
+    window.demoFlashlightSOS = () => {
+      trigo.flashlight.sos();
+      addLog('🔦 Flashlight SOS pattern', 'info');
+    };
+
+    window.demoCameraOpen = async () => {
+      try {
+        const video = document.createElement('video');
+        video.style.cssText = 'position:fixed;top:20px;right:20px;width:200px;border-radius:12px;z-index:99999;border:2px solid #7c3aed;';
+        video.autoplay = true;
+        video.playsInline = true;
+        document.body.appendChild(video);
+        await trigo.camera.open({ video, facing: 'environment' });
+        addLog('📸 Camera opened', 'info');
+        setTimeout(() => { trigo.camera.close(); video.remove(); addLog('📸 Camera closed', 'info'); }, 5000);
+      } catch (e) {
+        addLog(`📸 Camera error: ${e.message}`, 'error');
+      }
+    };
+
+    window.demoCameraCapture = async () => {
+      try {
+        await trigo.camera.open();
+        const result = await trigo.camera.capture();
+        addLog(`📸 Photo captured: ${result.size} bytes`, 'info');
+        trigo.camera.close();
+        const img = document.createElement('img');
+        img.src = result.url;
+        img.style.cssText = 'position:fixed;top:20px;right:20px;width:200px;border-radius:12px;z-index:99999;border:2px solid #7c3aed;';
+        document.body.appendChild(img);
+        setTimeout(() => img.remove(), 5000);
+      } catch (e) {
+        addLog(`📸 Capture error: ${e.message}`, 'error');
+      }
+    };
+
+    window.demoMicRecord = async () => {
+      try {
+        addLog('🎤 Recording 3 seconds...', 'info');
+        const result = await trigo.microphone.record({ duration: 3000 });
+        addLog(`🎤 Recorded: ${result.size} bytes, ${result.duration}ms`, 'info');
+        const audio = new Audio(result.url);
+        audio.play();
+      } catch (e) {
+        addLog(`🎤 Mic error: ${e.message}`, 'error');
+      }
+    };
+
+    window.demoMicLevel = async () => {
+      try {
+        trigo.microphone.level({
+          continuous: true,
+          onLevel: (level) => { document.getElementById('demoBox').style.transform = `scale(${1 + level/100})`; }
+        });
+        addLog('🎤 Mic level meter active (watch the demo box!)', 'info');
+        setTimeout(() => trigo.microphone.stop(), 5000);
+      } catch (e) {
+        addLog(`🎤 Level error: ${e.message}`, 'error');
+      }
+    };
+
+    window.demoLocation = async () => {
+      try {
+        const pos = await trigo.location.get();
+        addLog(`📍 Location: ${pos.latitude.toFixed(4)}, ${pos.longitude.toFixed(4)}`, 'info');
+        showToast(`📍 ${pos.latitude.toFixed(4)}, ${pos.longitude.toFixed(4)}`);
+      } catch (e) {
+        addLog(`📍 Location error: ${e.message}`, 'error');
+      }
+    };
+
+    window.demoSpeed = async () => {
+      try {
+        const result = await trigo.location.speed();
+        addLog(`🏃 Speed: ${result.speedKmh} km/h`, 'info');
+      } catch (e) {
+        addLog(`🏃 Speed error: ${e.message}`, 'error');
+      }
+    };
+
+    window.demoClipboard = async () => {
+      await trigo.clipboard.copy('Hello from Trigo.js! 🚀');
+      addLog('📋 Text copied to clipboard', 'info');
+      showToast('Copied!');
+    };
+
+    window.demoClipboardPaste = async () => {
+      const result = await trigo.clipboard.paste();
+      addLog(`📋 Pasted: ${result.text}`, 'info');
+    };
+
+    window.demoShare = async () => {
+      await trigo.share.url({ url: 'https://trigo.js', title: 'Trigo.js', text: 'Check out Trigo.js!' });
+      addLog('📤 Share dialog opened', 'info');
+    };
+
+    window.demoShareText = async () => {
+      await trigo.share.text({ text: 'Hello from Trigo.js! The most powerful web trigger library.' });
+      addLog('📤 Share text dialog opened', 'info');
+    };
+
+    window.demoNotify = async () => {
+      await trigo.notify('Trigo.js Demo', {
+        body: 'This is a test notification!',
+        icon: './trigo.png',
+        vibrate: [200, 100, 200]
+      });
+      addLog('🔔 Notification sent', 'info');
+    };
+
+    window.demoNotifySchedule = () => {
+      trigo.notify.schedule('Scheduled!', 5000, {
+        body: 'This was scheduled 5 seconds ago.',
+        icon: './trigo.png'
+      });
+      addLog('🔔 Notification scheduled in 5 seconds', 'info');
+      showToast('Notification in 5s...');
+    };
+
+    window.demoSMS = () => {
+      trigo.sms('1234567890', 'Hello from Trigo.js!');
+      addLog('📱 SMS trigger fired', 'info');
+    };
+
+    window.demoEmail = () => {
+      trigo.email('hello@trigo.js', { subject: 'Hello from Trigo.js', body: 'Testing Trigo.js email trigger!' });
+      addLog('📧 Email trigger fired', 'info');
+    };
+
+    window.demoFullscreen = () => {
+      trigo.fullscreen.enter();
+      addLog('🖥️ Entered fullscreen', 'info');
+    };
+
+    window.demoFullscreenExit = () => {
+      trigo.fullscreen.exit();
+      addLog('🖥️ Exited fullscreen', 'info');
+    };
+
+    window.demoFadeIn = () => {
+      const box = document.getElementById('demoBox');
+      box.style.display = '';
+      trigo.fade.in(box, { duration: 800 });
+      addLog('🌫️ Fade In — 800ms', 'info');
+    };
+
+    window.demoFadeOut = () => {
+      trigo.fade.out('#demoBox', { duration: 800 });
+      addLog('🌫️ Fade Out — 800ms', 'info');
+    };
+
+    window.demoFadeToggle = () => {
+      trigo.fade.toggle('#demoBox');
+      addLog('🌫️ Fade Toggle', 'info');
+    };
+
+    window.demoBlink = () => {
+      trigo.blink('#demoBox', { interval: 300, count: 6 });
+      addLog('👁️ Blink — 6 times, 300ms', 'info');
+    };
+
+    window.demoFlash = () => {
+      trigo.flash('#demoBox', { count: 5, interval: 80, color: '#7c3aed' });
+      addLog('⚡ Flash — 5 times, 80ms', 'info');
+    };
+
+    window.demoPulse = () => {
+      trigo.pulse('#demoBox', { scale: 1.1, count: 4 });
+      addLog('💫 Pulse — 4 times, 1.1x scale', 'info');
+    };
+
+    window.demoGlow = () => {
+      trigo.glow('#demoBox', { color: '#7c3aed', spread: 30, count: 4 });
+      addLog('✨ Glow — 4 times, purple', 'info');
+    };
+
+    window.demoShake = () => {
+      trigo.shake('#demoBox', { intensity: 8, duration: 500 });
+      addLog('🪨 Shake — intensity 8, 500ms', 'info');
+    };
+
+    window.demoBounce = () => {
+      trigo.bounce('#demoBox', { height: 25, count: 4 });
+      addLog('🏀 Bounce — 4 times, 25px', 'info');
+    };
+
+    window.demoSlideIn = () => {
+      const box = document.getElementById('demoBox');
+      box.style.display = '';
+      trigo.slide.in(box, { from: 'bottom', distance: 60, duration: 600 });
+      addLog('📐 Slide In — from bottom', 'info');
+    };
+
+    window.demoSlideOut = () => {
+      trigo.slide.out('#demoBox', { to: 'right', distance: 60, duration: 600 });
+      addLog('📐 Slide Out — to right', 'info');
+    };
+
+    window.demoZoomIn = () => {
+      const box = document.getElementById('demoBox');
+      box.style.display = '';
+      trigo.zoom.in(box, { from: 0.3, duration: 600 });
+      addLog('🔍 Zoom In — from 0.3x', 'info');
+    };
+
+    window.demoSpin = () => {
+      trigo.spin('#demoBox', { speed: 1500, infinite: true });
+      addLog('🔄 Spin — 1500ms continuous', 'info');
+      setTimeout(() => trigo.spin.stop('#demoBox'), 5000);
+    };
+
+    window.demoReveal = () => {
+      trigo.reveal('.card', { animation: 'fadeUp', threshold: 0.1, stagger: 100 });
+      addLog('👀 Reveal setup — cards animate on scroll', 'info');
+    };
+
+    window.demoHolographic = () => {
+      trigo.holographic('#demoBox', { maxTilt: 20, scale: 1.05, glare: true, colorShift: true });
+      addLog('🌈 Holographic activated — move mouse!', 'info');
+      showToast('Hover over the demo box!');
+    };
+
+    window.demoRipple = () => {
+      trigo.ripple('.btn', { color: 'rgba(255,255,255,0.5)' });
+      addLog('💧 Ripple effect enabled on all buttons', 'info');
+    };
+
+    window.demoTypewriter = () => {
+      trigo.typewriter('#demoBox', {
+        text: 'Hello from Trigo.js! The most powerful web trigger library ever built. 🚀',
+        speed: 40,
+        cursor: true
+      });
+      addLog('⌨️ Typewriter started', 'info');
+    };
+
+    window.demoScramble = () => {
+      trigo.scramble('#demoBox', {
+        text: 'Trigo.js — Unlock the web.',
+        duration: 1500
+      });
+      addLog('🔤 Scramble effect started', 'info');
+    };
+
+    window.demoGradient = () => {
+      trigo.gradient('#demoBox', {
+        colors: ['#7c3aed', '#a78bfa', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+        duration: 4000,
+        type: 'linear'
+      });
+      addLog('🎨 Gradient animation started', 'info');
+    };
+
+    window.demoParallax = () => {
+      trigo.parallax('.card', { speed: 0.3 });
+      addLog('🏔️ Parallax enabled on cards', 'info');
+    };
+
+    window.demoConfetti = () => {
+      trigo.confetti({
+        count: 80,
+        colors: ['#7c3aed', '#a78bfa', '#10b981', '#f59e0b', '#ef4444', '#3b82f6'],
+        spread: 120,
+        origin: { x: 0.5, y: 0.4 }
+      });
+      addLog('🎉 Confetti launched!', 'info');
+    };
+
+    window.demoConfettiBurst = () => {
+      trigo.confetti({ count: 40, spread: 60, origin: { x: 0.3, y: 0.5 } });
+      setTimeout(() => trigo.confetti({ count: 40, spread: 60, origin: { x: 0.7, y: 0.5 } }), 300);
+      setTimeout(() => trigo.confetti({ count: 40, spread: 60, origin: { x: 0.5, y: 0.3 } }), 600);
+      addLog('🎉 Confetti burst x3!', 'info');
+    };
+
+    window.demoParticles = () => {
+      trigo.particles({
+        count: 80,
+        color: '#a78bfa',
+        connectDistance: 120,
+        interactive: true
+      });
+      addLog('✨ Particles started — move mouse!', 'info');
+    };
+
+    window.demoParticlesStop = () => {
+      trigo.particles.stopAll();
+      addLog('✨ Particles stopped', 'info');
+    };
+
+    window.demoSnow = () => {
+      trigo.snow({ count: 80, speed: 1.5 });
+      addLog('❄️ Snow started', 'info');
+    };
+
+    window.demoSnowStop = () => {
+      trigo.snow.stopAll();
+      addLog('❄️ Snow stopped', 'info');
+    };
+
+    window.demoFire = () => {
+      trigo.fire({ count: 60, intensity: 1 });
+      addLog('🔥 Fire ignited', 'info');
+    };
+
+    window.demoFireStop = () => {
+      trigo.fire.stopAll();
+      addLog('🔥 Fire extinguished', 'info');
+    };
+
+    window.demoSpeak = () => {
+      trigo.speak('Hello! Welcome to Trigo.js. The most powerful web trigger library ever built.', { rate: 1, pitch: 1 });
+      addLog('🗣️ Speaking...', 'info');
+    };
+
+    window.demoSpeakStop = () => {
+      trigo.speak.stop();
+      addLog('🗣️ Speech stopped', 'info');
+    };
+
+    window.demoListen = async () => {
+      try {
+        const result = await trigo.listen({ continuous: false, lang: 'en-US' });
+        addLog(`🎙️ Heard: "${result.text}"`, 'info');
+        document.getElementById('demoBox').textContent = result.text || 'Listening...';
+      } catch (e) {
+        addLog(`🎙️ Listen error: ${e.message}`, 'error');
+      }
+    };
+
+    window.demoListenStop = () => {
+      trigo.listen.stop();
+      addLog('🎙️ Listening stopped', 'info');
+    };
+
+    window.demoBeep = () => {
+      trigo.beep({ frequency: 800, duration: 200, count: 1 });
+      addLog('🔊 Beep — 800Hz, 200ms', 'info');
+    };
+
+    window.demoBeepMelody = () => {
+      const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
+      notes.forEach((freq, i) => {
+        setTimeout(() => trigo.beep({ frequency: freq, duration: 150 }), i * 150);
+      });
+      addLog('🔊 Melody playing...', 'info');
+    };
+
+    document.getElementById('demoBox').addEventListener('click', function() {
+      trigo.confetti({ count: 30, spread: 60, origin: { x: 0.5, y: 0.5 } });
+      trigo.pulse(this, { scale: 1.05, count: 2 });
+      addLog('🖱️ Demo box clicked — confetti + pulse!', 'info');
+    });
+
+    if (trigo.is.desktop) {
+      addLog('💻 Running on Desktop — some triggers limited', 'info');
+    } else if (trigo.is.mobile) {
+      addLog('📱 Running on Mobile — full device triggers available', 'info');
+    }
+
+    addLog(`✅ Trigo.js v${trigo.version} fully initialized`, 'info');
+    addLog(`📊 Supported features: ${Object.entries(trigo.support()).filter(([,v]) => v).length} APIs available`, 'info');
+
+    console.log('Trigo.js Demo Ready', trigo);
+  </script>
+</body>
+</html>
