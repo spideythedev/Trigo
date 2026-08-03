@@ -1,67 +1,31 @@
 {
   "version": 2,
+  "installCommand": "npm install --legacy-peer-deps",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": null,
+  "outputDirectory": "./",
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
-    }
+    { "source": "/(.*)", "destination": "/$1" }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
       ]
     },
     {
       "source": "/trigo.min.js",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    },
-    {
-      "source": "/trigo.js",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]
     },
     {
       "source": "/(.*)\\.(png|jpg|jpeg|gif|svg|ico|webp)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=2592000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
       ]
     }
   ]
