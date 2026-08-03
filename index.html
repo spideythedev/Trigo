@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Trigo.js — The Most Powerful Web Trigger Library</title>
+  <meta name="description" content="Trigo.js — The most powerful, most customizable web trigger library. 483+ triggers. Mobile & Desktop. Zero dependencies.">
+  <meta name="keywords" content="trigo.js, web triggers, device api, sensors, animations, javascript library">
+  <meta property="og:title" content="Trigo.js — Command the Web">
+  <meta property="og:description" content="The most powerful, most customizable web trigger library ever built.">
+  <meta property="og:image" content="./trigo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Trigo.js — Command the Web</title>
   <link rel="icon" type="image/png" href="./trigo.png">
   <style>
     *, *::before, *::after {
@@ -13,933 +20,1095 @@
     }
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --surface2: #1a1a24;
-      --border: #252530;
-      --text: #e0e0e0;
-      --text2: #8888a0;
+      --bg: #06060b;
+      --bg2: #0c0c14;
+      --surface: #111118;
+      --surface2: #181820;
+      --border: #222230;
+      --border2: #2a2a38;
+      --text: #e4e4ec;
+      --text2: #9090a8;
+      --text3: #606078;
       --accent: #7c3aed;
       --accent2: #a78bfa;
+      --accent3: #c4b5fd;
       --green: #10b981;
+      --green2: #34d399;
       --red: #ef4444;
       --yellow: #f59e0b;
       --blue: #3b82f6;
+      --blue2: #60a5fa;
       --radius: 12px;
+      --radius2: 16px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: var(--font);
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 1100px;
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(124, 58, 237, 0.03) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 60%, rgba(59, 130, 246, 0.02) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 80%, rgba(16, 185, 129, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(6, 6, 11, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    header {
-      text-align: center;
-      padding: 60px 20px 40px;
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links .btn-nav {
+      background: var(--accent);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .nav-links .btn-nav:hover {
+      background: #6d28d9;
+      color: white;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(6, 6, 11, 0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent2);
+    }
+
+    .mobile-menu .btn-nav {
+      background: var(--accent);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+    }
+
+    .hero {
       position: relative;
+      z-index: 1;
+      padding: 140px 24px 80px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .logo {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.5));
-      animation: float 3s ease-in-out infinite;
+    .hero-logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.4));
+      animation: float 4s ease-in-out infinite;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-12px); }
     }
 
-    h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent2), var(--accent), #c084fc);
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #c4b5fd 0%, #7c3aed 30%, #a78bfa 60%, #c4b5fd 100%);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: -1px;
+      animation: shimmer 3s ease-in-out infinite;
     }
 
-    .subtitle {
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero p {
       color: var(--text2);
-      font-size: 1.1rem;
-      margin-top: 10px;
+      font-size: 1.2rem;
+      margin-top: 18px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
     }
 
-    .badge {
-      display: inline-block;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      color: var(--text2);
-      margin: 4px;
-    }
-
-    .badges {
-      margin-top: 15px;
-    }
-
-    .section {
-      margin: 40px 0;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 20px;
+    .hero-badges {
       display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title .icon {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       justify-content: center;
-      background: var(--surface2);
-      border-radius: 8px;
-      font-size: 1.1rem;
+      gap: 10px;
+      margin-top: 28px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
+    .hero-badge {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      transition: all 0.2s;
-    }
-
-    .card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
-    }
-
-    .card-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-    }
-
-    .card-desc {
+      border: 1px solid var(--border2);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: 0.88rem;
+      font-weight: 500;
       color: var(--text2);
-      font-size: 0.8rem;
-      margin-bottom: 14px;
+      transition: var(--transition);
+    }
+
+    .hero-badge:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .hero-badge .count {
+      color: var(--accent2);
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 36px;
     }
 
     .btn {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
       border: none;
-      transition: all 0.2s;
-      color: white;
       text-decoration: none;
-      margin: 3px;
+      transition: var(--transition);
+      font-family: var(--font);
     }
 
-    .btn-accent { background: var(--accent); }
-    .btn-accent:hover { background: #6d28d9; transform: translateY(-1px); }
-    .btn-green { background: var(--green); }
-    .btn-green:hover { background: #059669; transform: translateY(-1px); }
-    .btn-red { background: var(--red); }
-    .btn-red:hover { background: #dc2626; transform: translateY(-1px); }
-    .btn-yellow { background: var(--yellow); color: #000; }
-    .btn-yellow:hover { background: #d97706; transform: translateY(-1px); }
-    .btn-blue { background: var(--blue); }
-    .btn-blue:hover { background: #2563eb; transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #6d28d9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.35);
+    }
 
     .btn-outline {
       background: transparent;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border2);
       color: var(--text);
     }
     .btn-outline:hover {
       border-color: var(--accent);
       color: var(--accent2);
+      transform: translateY(-2px);
     }
 
-    .demo-box {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 30px;
-      text-align: center;
-      margin-top: 16px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s;
-      cursor: pointer;
-      user-select: none;
+    .btn-green {
+      background: var(--green);
+      color: white;
+    }
+    .btn-green:hover {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
     }
 
-    .log-area {
-      background: #000;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-top: 16px;
-      max-height: 300px;
-      overflow-y: auto;
-      font-family: 'Fira Code', 'Consolas', monospace;
-      font-size: 0.8rem;
-      color: var(--green);
-      line-height: 1.6;
-    }
-
-    .log-entry {
-      padding: 2px 0;
-    }
-
-    .log-entry.warn { color: var(--yellow); }
-    .log-entry.error { color: var(--red); }
-    .log-entry.info { color: var(--blue); }
-
-    .toast-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .toast {
+    .install-bar {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 20px;
-      font-size: 0.9rem;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-radius: var(--radius2);
+      padding: 18px 24px;
+      margin: 0 auto;
+      max-width: 700px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text2);
+      overflow-x: auto;
+      white-space: nowrap;
+      position: relative;
     }
 
-    @keyframes slideIn {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+    .install-bar .prompt {
+      color: var(--green2);
+    }
+    .install-bar .cmd {
+      color: var(--accent2);
+    }
+    .install-bar .str {
+      color: var(--green);
+    }
+    .install-bar .copy-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: var(--transition);
+    }
+    .install-bar .copy-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      color: var(--text2);
+      font-size: 1.05rem;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 24px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+      background: var(--surface2);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      color: var(--text2);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font);
+      transition: var(--transition);
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-sm:hover {
+      border-color: var(--accent);
+      color: var(--accent2);
+    }
+    .btn-sm.accent { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn-sm.accent:hover { background: #6d28d9; }
+    .btn-sm.green { background: var(--green); color: white; border-color: var(--green); }
+    .btn-sm.green:hover { background: #059669; }
+    .btn-sm.red { background: var(--red); color: white; border-color: var(--red); }
+    .btn-sm.red:hover { background: #dc2626; }
+    .btn-sm.yellow { background: var(--yellow); color: #000; border-color: var(--yellow); }
+    .btn-sm.yellow:hover { background: #d97706; }
+    .btn-sm.blue { background: var(--blue); color: white; border-color: var(--blue); }
+    .btn-sm.blue:hover { background: #2563eb; }
+
+    .demo-area {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 40px;
+      text-align: center;
+      margin-top: 32px;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .demo-area:hover {
+      border-color: var(--border2);
+    }
+
+    .console-area {
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 20px;
+      margin-top: 18px;
+      max-height: 250px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--green);
+      line-height: 1.7;
+    }
+
+    .console-line { padding: 1px 0; }
+    .console-line.warn { color: var(--yellow); }
+    .console-line.error { color: var(--red); }
+    .console-line.info { color: var(--blue2); }
+    .console-line.dim { color: var(--text3); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 50px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      color: var(--text2);
+      font-size: 0.85rem;
+      margin-top: 4px;
     }
 
     footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
       text-align: center;
-      padding: 40px 20px;
       color: var(--text2);
       font-size: 0.85rem;
-      border-top: 1px solid var(--border);
-      margin-top: 60px;
     }
 
     footer a {
       color: var(--accent2);
       text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 120px 20px 60px; }
+      .hero h1 { font-size: 2.2rem; letter-spacing: -1px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .grid { grid-template-columns: 1fr; }
-      header { padding: 40px 20px 30px; }
+      .install-bar { font-size: 0.7rem; padding: 14px 16px; }
+      .install-bar .copy-btn { padding: 4px 10px; font-size: 0.7rem; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .hero-badges { gap: 6px; }
+      .hero-badge { padding: 6px 12px; font-size: 0.78rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="toast-container" id="toastContainer"></div>
-
-  <div class="container">
-
-    <header>
-      <img src="./trigo.png" alt="Trigo.js" class="logo" id="logo">
-      <h1>Trigo.js</h1>
-      <p class="subtitle">The Most Powerful, Most Customizable Web Trigger Library</p>
-      <div class="badges">
-        <span class="badge">483+ Triggers</span>
-        <span class="badge">Mobile & Desktop</span>
-        <span class="badge">Zero Dependencies</span>
-        <span class="badge">v1.0.0</span>
-      </div>
-    </header>
-
-    <div class="section">
-      <div class="section-title"><span class="icon">📱</span> Device Triggers</div>
-      <div class="grid">
-
-        <div class="card">
-          <div class="card-title">📳 Vibration</div>
-          <div class="card-desc">Vibrate, pulse pattern, SOS, heartbeat</div>
-          <button class="btn btn-accent" onclick="demoVibrate()">Vibrate 200ms</button>
-          <button class="btn btn-outline" onclick="demoVibrateSOS()">SOS</button>
-          <button class="btn btn-outline" onclick="demoVibrateHeartbeat()">💓</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🔦 Flashlight</div>
-          <div class="card-desc">Toggle, blink, strobe, morse, breathe</div>
-          <button class="btn btn-yellow" onclick="demoFlashlightToggle()">Toggle</button>
-          <button class="btn btn-outline" onclick="demoFlashlightBlink()">Blink</button>
-          <button class="btn btn-outline" onclick="demoFlashlightSOS()">SOS</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">📸 Camera</div>
-          <div class="card-desc">Open, capture, record, scan QR</div>
-          <button class="btn btn-blue" onclick="demoCameraOpen()">Open Camera</button>
-          <button class="btn btn-outline" onclick="demoCameraCapture()">Capture</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🎤 Microphone</div>
-          <div class="card-desc">Record audio, stream, level meter</div>
-          <button class="btn btn-accent" onclick="demoMicRecord()">Record 3s</button>
-          <button class="btn btn-outline" onclick="demoMicLevel()">Check Level</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">📍 Location</div>
-          <div class="card-desc">Get position, watch, speed, heading</div>
-          <button class="btn btn-green" onclick="demoLocation()">Get Location</button>
-          <button class="btn btn-outline" onclick="demoSpeed()">Get Speed</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">📋 Clipboard</div>
-          <div class="card-desc">Copy text, paste, clear</div>
-          <button class="btn btn-blue" onclick="demoClipboard()">Copy Text</button>
-          <button class="btn btn-outline" onclick="demoClipboardPaste()">Paste</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">📤 Share</div>
-          <div class="card-desc">Native share sheet, URL, text, files</div>
-          <button class="btn btn-accent" onclick="demoShare()">Share URL</button>
-          <button class="btn btn-outline" onclick="demoShareText()">Share Text</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🔔 Notifications</div>
-          <div class="card-desc">Push, schedule, badge, interactive</div>
-          <button class="btn btn-green" onclick="demoNotify()">Notify Me</button>
-          <button class="btn btn-outline" onclick="demoNotifySchedule()">In 5s</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">📞 Call / SMS / Email</div>
-          <div class="card-desc">Trigger native communication apps</div>
-          <button class="btn btn-blue" onclick="demoSMS()">SMS</button>
-          <button class="btn btn-outline" onclick="demoEmail()">Email</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🖥️ Fullscreen</div>
-          <div class="card-desc">Enter, exit, toggle fullscreen</div>
-          <button class="btn btn-accent" onclick="demoFullscreen()">Fullscreen</button>
-          <button class="btn btn-outline" onclick="demoFullscreenExit()">Exit</button>
-        </div>
-
-      </div>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="./trigo.png" alt="Trigo.js">
+        <span>Trigo.js</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#visual">Visual</a></li>
+        <li><a href="#canvas">Canvas</a></li>
+        <li><a href="#audio">Audio</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="https://github.com/spideythedev/Trigo" target="_blank">GitHub</a></li>
+        <li><a href="https://learntrigo.vercel.app" target="_blank" class="btn-nav">Learn Trigo.js</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
+  </nav>
 
-    <div class="section">
-      <div class="section-title"><span class="icon">🎬</span> Visual Triggers</div>
-      <div class="grid">
-
-        <div class="card">
-          <div class="card-title">🌫️ Fade</div>
-          <div class="card-desc">Fade in, out, toggle, to custom opacity</div>
-          <button class="btn btn-accent" onclick="demoFadeIn()">Fade In</button>
-          <button class="btn btn-outline" onclick="demoFadeOut()">Fade Out</button>
-          <button class="btn btn-outline" onclick="demoFadeToggle()">Toggle</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">👁️ Blink / Flash</div>
-          <div class="card-desc">Blink element, flash background</div>
-          <button class="btn btn-yellow" onclick="demoBlink()">Blink</button>
-          <button class="btn btn-outline" onclick="demoFlash()">Flash</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">💫 Pulse / Glow</div>
-          <div class="card-desc">Scale pulse, box-shadow glow</div>
-          <button class="btn btn-accent" onclick="demoPulse()">Pulse</button>
-          <button class="btn btn-outline" onclick="demoGlow()">Glow</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🪨 Shake / Bounce</div>
-          <div class="card-desc">Shake horizontally, bounce vertically</div>
-          <button class="btn btn-red" onclick="demoShake()">Shake</button>
-          <button class="btn btn-outline" onclick="demoBounce()">Bounce</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">📐 Slide</div>
-          <div class="card-desc">Slide in, out, toggle from any direction</div>
-          <button class="btn btn-blue" onclick="demoSlideIn()">Slide In</button>
-          <button class="btn btn-outline" onclick="demoSlideOut()">Slide Out</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🔍 Zoom / Spin</div>
-          <div class="card-desc">Zoom in/out, continuous spin</div>
-          <button class="btn btn-accent" onclick="demoZoomIn()">Zoom In</button>
-          <button class="btn btn-outline" onclick="demoSpin()">Spin</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">👀 Reveal</div>
-          <div class="card-desc">Animate elements on scroll into view</div>
-          <button class="btn btn-green" onclick="demoReveal()">Reveal Setup</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🌈 Holographic</div>
-          <div class="card-desc">3D tilt, glare, color shift on hover</div>
-          <button class="btn btn-accent" onclick="demoHolographic()">Activate</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">💧 Ripple</div>
-          <div class="card-desc">Material design ripple on click</div>
-          <button class="btn btn-blue" onclick="demoRipple()">Enable Ripple</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">⌨️ Typewriter</div>
-          <div class="card-desc">Type text character by character</div>
-          <button class="btn btn-accent" onclick="demoTypewriter()">Type Text</button>
-          <button class="btn btn-outline" onclick="demoScramble()">Scramble</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🎨 Gradient</div>
-          <div class="card-desc">Animated color gradient background</div>
-          <button class="btn btn-accent" onclick="demoGradient()">Animate</button>
-          <button class="btn btn-outline" onclick="demoParallax()">Parallax</button>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title"><span class="icon">🎨</span> Canvas Effects</div>
-      <div class="grid">
-
-        <div class="card">
-          <div class="card-title">🎉 Confetti</div>
-          <div class="card-desc">Celebration confetti burst</div>
-          <button class="btn btn-yellow" onclick="demoConfetti()">Launch!</button>
-          <button class="btn btn-outline" onclick="demoConfettiBurst()">Burst x3</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">✨ Particles</div>
-          <div class="card-desc">Interactive floating particle network</div>
-          <button class="btn btn-accent" onclick="demoParticles()">Start</button>
-          <button class="btn btn-outline" onclick="demoParticlesStop()">Stop</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">❄️ Snow</div>
-          <div class="card-desc">Falling snow effect</div>
-          <button class="btn btn-blue" onclick="demoSnow()">Let it Snow</button>
-          <button class="btn btn-outline" onclick="demoSnowStop()">Stop</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🔥 Fire</div>
-          <div class="card-desc">Realistic fire particle effect</div>
-          <button class="btn btn-red" onclick="demoFire()">Ignite</button>
-          <button class="btn btn-outline" onclick="demoFireStop()">Extinguish</button>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title"><span class="icon">🔊</span> Audio Triggers</div>
-      <div class="grid">
-
-        <div class="card">
-          <div class="card-title">🗣️ Speech</div>
-          <div class="card-desc">Text-to-speech synthesis</div>
-          <button class="btn btn-accent" onclick="demoSpeak()">Speak</button>
-          <button class="btn btn-outline" onclick="demoSpeakStop()">Stop</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🎙️ Listen</div>
-          <div class="card-desc">Speech recognition, voice commands</div>
-          <button class="btn btn-green" onclick="demoListen()">Start Listening</button>
-          <button class="btn btn-outline" onclick="demoListenStop()">Stop</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">🔊 Beep</div>
-          <div class="card-desc">Generate audio beeps, patterns</div>
-          <button class="btn btn-blue" onclick="demoBeep()">Beep 800Hz</button>
-          <button class="btn btn-outline" onclick="demoBeepMelody()">Melody</button>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title"><span class="icon">🧪</span> Live Demo Area</div>
-      <div class="demo-box" id="demoBox">
-        👆 Click me — I respond to visual triggers!
-      </div>
-      <div class="log-area" id="logArea">
-        <div class="log-entry info">[Trigo] Ready. All 483+ triggers loaded.</div>
-        <div class="log-entry">[Trigo] Device: <span id="deviceInfo">Detecting...</span></div>
-        <div class="log-entry">[Trigo] Click any button to test triggers.</div>
-      </div>
-    </div>
-
-    <footer>
-      <p>Built with <strong>Trigo.js</strong> — The Most Powerful Web Trigger Library</p>
-      <p>483+ Triggers | Mobile & Desktop | Zero Dependencies</p>
-    </footer>
-
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#visual">Visual</a>
+    <a href="#canvas">Canvas</a>
+    <a href="#audio">Audio</a>
+    <a href="#demo">Demo</a>
+    <a href="https://github.com/spideythedev/Trigo" target="_blank">GitHub</a>
+    <a href="https://learntrigo.vercel.app" target="_blank" class="btn-nav">Learn Trigo.js</a>
   </div>
 
-  <script type="module">
-    import trigo from './trigo.js';
+  <section class="hero">
+    <img src="./trigo.png" alt="Trigo.js" class="hero-logo">
+    <h1>Command the Web</h1>
+    <p>Trigo.js is the most powerful, most customizable web trigger library ever built. Access 483+ device capabilities, sensors, visual effects, and canvas animations — all from a single, elegant API.</p>
+    <div class="hero-badges">
+      <span class="hero-badge"><span class="count">483+</span> Triggers</span>
+      <span class="hero-badge">📱 Mobile & Desktop</span>
+      <span class="hero-badge">📦 Zero Dependencies</span>
+      <span class="hero-badge">🎨 Fully Customizable</span>
+      <span class="hero-badge">⚡ Lightweight</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#features" class="btn btn-primary">Explore Features</a>
+      <a href="https://github.com/spideythedev/Trigo" target="_blank" class="btn btn-outline">View on GitHub</a>
+      <a href="https://learntrigo.vercel.app" target="_blank" class="btn btn-green">Learn Trigo.js</a>
+    </div>
+    <div style="margin-top: 36px;">
+      <div class="install-bar">
+        <span class="prompt">$</span> <span class="cmd">npm install trigo.js</span>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('npm install trigo.js');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">483+</div>
+        <div class="stat-label">Total Triggers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Dependencies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statSize">~45KB</div>
+        <div class="stat-label">Minified + Gzip</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statDevice">—</div>
+        <div class="stat-label">Your Device</div>
+      </div>
+    </div>
+  </section>
 
-    window.trigo = trigo;
+  <section class="section" id="features">
+    <div class="section-label">Device API</div>
+    <div class="section-title">Hardware at Your Fingertips</div>
+    <div class="section-desc">Access sensors, radios, and system features directly from the browser. Trigo.js handles permissions, fallbacks, and cross-platform differences automatically.</div>
+    <div class="grid">
 
-    function addLog(message, type = '') {
-      const logArea = document.getElementById('logArea');
-      const entry = document.createElement('div');
-      entry.className = `log-entry ${type}`;
-      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
-      logArea.appendChild(entry);
-      logArea.scrollTop = logArea.scrollHeight;
+      <div class="card">
+        <div class="card-icon">📳</div>
+        <div class="card-title">Vibration & Haptics</div>
+        <div class="card-desc">Vibrate patterns, haptic feedback, SOS, heartbeat rhythms. iOS haptics supported.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.vibrate(200)">Vibrate</button>
+          <button class="btn-sm" onclick="t.vibrate.sos()">SOS</button>
+          <button class="btn-sm" onclick="t.vibrate.heartbeat()">Heartbeat</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔦</div>
+        <div class="card-title">Flashlight</div>
+        <div class="card-desc">Toggle, blink, strobe, morse code, SOS, breathing effect, countdown.</div>
+        <div class="card-actions">
+          <button class="btn-sm yellow" onclick="t.flashlight.toggle()">Toggle</button>
+          <button class="btn-sm" onclick="t.flashlight.blink({count:5})">Blink</button>
+          <button class="btn-sm" onclick="t.flashlight.sos()">SOS</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📸</div>
+        <div class="card-title">Camera & Mic</div>
+        <div class="card-desc">Open camera, capture photos, record video/audio, scan barcodes, measure mic level.</div>
+        <div class="card-actions">
+          <button class="btn-sm blue" onclick="demoCamera()">Open Camera</button>
+          <button class="btn-sm" onclick="demoMic()">Record 3s</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📍</div>
+        <div class="card-title">Geolocation</div>
+        <div class="card-desc">Get position, watch movement, calculate speed, heading, distance between points.</div>
+        <div class="card-actions">
+          <button class="btn-sm green" onclick="demoLocation()">Get Location</button>
+          <button class="btn-sm" onclick="demoSpeed()">Get Speed</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Clipboard & Share</div>
+        <div class="card-desc">Copy/paste text, HTML, images. Native share sheet for URL, text, and files.</div>
+        <div class="card-actions">
+          <button class="btn-sm blue" onclick="t.clipboard.copy('Hello from Trigo.js!');log('Copied!','info')">Copy</button>
+          <button class="btn-sm" onclick="t.share.url({url:location.href,title:'Trigo.js'})">Share</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔔</div>
+        <div class="card-title">Notifications</div>
+        <div class="card-desc">Push notifications with icons, actions, scheduling, badges, silent mode.</div>
+        <div class="card-actions">
+          <button class="btn-sm green" onclick="t.notify('Hello!',{body:'From Trigo.js',icon:'./trigo.png'})">Notify</button>
+          <button class="btn-sm" onclick="t.notify.schedule('Later!',3000,{body:'Scheduled!'})">In 3s</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🖥️</div>
+        <div class="card-title">Fullscreen & Wake Lock</div>
+        <div class="card-desc">Enter/exit fullscreen, keep screen awake, prevent device sleep.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.fullscreen.enter()">Fullscreen</button>
+          <button class="btn-sm" onclick="t.fullscreen.exit()">Exit</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📡</div>
+        <div class="card-title">NFC & Bluetooth</div>
+        <div class="card-desc">Read/write NFC tags, scan and connect Bluetooth devices, send/receive data.</div>
+        <div class="card-actions">
+          <button class="btn-sm blue" onclick="log('NFC: Requires Android with Chrome','info')">NFC Read</button>
+          <button class="btn-sm" onclick="log('Bluetooth: Click to scan','info')">BT Scan</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="visual">
+    <div class="section-label">Visual Effects</div>
+    <div class="section-title">Beautiful Animations, One Line Each</div>
+    <div class="section-desc">Fade, slide, zoom, shake, pulse, glow, spin, bounce, holographic 3D effects, typewriter, scramble, gradient animations, and more. All with full customization.</div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-icon">🌫️</div>
+        <div class="card-title">Fade & Blink</div>
+        <div class="card-desc">Fade in/out with custom opacity, duration, easing. Blink and flash with configurable intervals.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.fade.in('#demoBox',800)">Fade In</button>
+          <button class="btn-sm" onclick="t.fade.out('#demoBox',800)">Fade Out</button>
+          <button class="btn-sm" onclick="t.blink('#demoBox',{interval:300,count:6})">Blink</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">💫</div>
+        <div class="card-title">Pulse & Glow</div>
+        <div class="card-desc">Scale pulse with configurable intensity. Box-shadow glow with custom colors and spread.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.pulse('#demoBox',{scale:1.1,count:4})">Pulse</button>
+          <button class="btn-sm" onclick="t.glow('#demoBox',{color:'#7c3aed',spread:30})">Glow</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🪨</div>
+        <div class="card-title">Shake & Bounce</div>
+        <div class="card-desc">Shake horizontally/vertically with custom intensity. Bounce with configurable height and count.</div>
+        <div class="card-actions">
+          <button class="btn-sm red" onclick="t.shake('#demoBox',{intensity:10})">Shake</button>
+          <button class="btn-sm" onclick="t.bounce('#demoBox',{height:25,count:4})">Bounce</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📐</div>
+        <div class="card-title">Slide & Zoom</div>
+        <div class="card-desc">Slide from any direction. Zoom in/out from any origin. Custom distance and easing.</div>
+        <div class="card-actions">
+          <button class="btn-sm blue" onclick="t.slide.in('#demoBox',{from:'bottom'})">Slide In</button>
+          <button class="btn-sm" onclick="t.zoom.in('#demoBox',{from:0.5})">Zoom In</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Spin & Reveal</div>
+        <div class="card-desc">Continuous spin with custom speed. Scroll-triggered reveal animations.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.spin('#demoBox',{speed:1500});setTimeout(()=>t.spin.stop('#demoBox'),4000)">Spin</button>
+          <button class="btn-sm" onclick="t.reveal('.card',{animation:'fadeUp'})">Reveal</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🌈</div>
+        <div class="card-title">Holographic & 3D</div>
+        <div class="card-desc">Tilt-responsive holographic effect with glare and color shift. 3D perspective transforms.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.holographic('#demoBox',{maxTilt:20,glare:true,colorShift:true});log('Move mouse over demo box!','info')">Activate</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⌨️</div>
+        <div class="card-title">Typewriter & Scramble</div>
+        <div class="card-desc">Type text character by character with cursor. Scramble text reveal effect.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.typewriter('#demoBox',{text:'Hello from Trigo.js! 🚀',speed:40})">Type</button>
+          <button class="btn-sm" onclick="t.scramble('#demoBox',{text:'Trigo.js Rocks!',duration:1500})">Scramble</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <div class="card-title">Gradient & Parallax</div>
+        <div class="card-desc">Animated color gradients. Scroll-based parallax effects on any element.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.gradient('#demoBox',{colors:['#7c3aed','#3b82f6','#10b981','#f59e0b'],duration:4000})">Gradient</button>
+          <button class="btn-sm" onclick="t.parallax('.card',{speed:0.3});log('Parallax active on cards','info')">Parallax</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="canvas">
+    <div class="section-label">Canvas Effects</div>
+    <div class="section-title">Particle Systems That Dazzle</div>
+    <div class="section-desc">Confetti bursts, interactive particle networks, snowfall, fire effects. All rendered on high-performance canvas.</div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-icon">🎉</div>
+        <div class="card-title">Confetti</div>
+        <div class="card-desc">Colorful confetti bursts with custom colors, spread, origin, and count.</div>
+        <div class="card-actions">
+          <button class="btn-sm yellow" onclick="t.confetti({count:80,spread:120})">Launch!</button>
+          <button class="btn-sm" onclick="t.confetti({count:30});setTimeout(()=>t.confetti({count:30,origin:{x:0.7,y:0.5}}),300);setTimeout(()=>t.confetti({count:30,origin:{x:0.5,y:0.3}}),600)">Burst x3</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">✨</div>
+        <div class="card-title">Particles</div>
+        <div class="card-desc">Interactive particle network. Move your mouse to attract particles. Fully configurable.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="demoParticlesStart()">Start</button>
+          <button class="btn-sm red" onclick="t.particles.stopAll()">Stop</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">❄️</div>
+        <div class="card-title">Snow</div>
+        <div class="card-desc">Realistic falling snow with configurable speed, wind, twinkle effect, and particle count.</div>
+        <div class="card-actions">
+          <button class="btn-sm blue" onclick="t.snow({count:80,speed:1.5})">Let it Snow</button>
+          <button class="btn-sm red" onclick="t.snow.stopAll()">Stop</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔥</div>
+        <div class="card-title">Fire</div>
+        <div class="card-desc">Procedural fire effect with customizable intensity, colors, and particle life.</div>
+        <div class="card-actions">
+          <button class="btn-sm red" onclick="t.fire({count:60,intensity:1})">Ignite</button>
+          <button class="btn-sm" onclick="t.fire.stopAll()">Extinguish</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="audio">
+    <div class="section-label">Audio</div>
+    <div class="section-title">Voice & Sound</div>
+    <div class="section-desc">Text-to-speech with configurable voice, rate, pitch. Speech recognition. Audio beeps with custom frequency patterns.</div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-icon">🗣️</div>
+        <div class="card-title">Speech Synthesis</div>
+        <div class="card-desc">Speak any text with full control over voice, rate, pitch, and volume.</div>
+        <div class="card-actions">
+          <button class="btn-sm accent" onclick="t.speak('Welcome to Trigo.js! The most powerful web trigger library.',{rate:1})">Speak</button>
+          <button class="btn-sm" onclick="t.speak.stop()">Stop</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎙️</div>
+        <div class="card-title">Speech Recognition</div>
+        <div class="card-desc">Listen to user speech and convert to text in real-time.</div>
+        <div class="card-actions">
+          <button class="btn-sm green" onclick="demoListen()">Start Listening</button>
+          <button class="btn-sm" onclick="t.listen.stop()">Stop</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔊</div>
+        <div class="card-title">Beep Generator</div>
+        <div class="card-desc">Generate audio beeps with custom frequency, duration, type, and patterns.</div>
+        <div class="card-actions">
+          <button class="btn-sm blue" onclick="t.beep({frequency:800,duration:200})">Beep</button>
+          <button class="btn-sm" onclick="demoMelody()">Play Melody</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="demo">
+    <div class="section-label">Live Demo</div>
+    <div class="section-title">Try It Yourself</div>
+    <div class="section-desc">Click the box below to see Trigo.js in action. Every click triggers confetti and a pulse animation. Open the console to explore the full API.</div>
+    <div class="demo-area" id="demoBox">
+      👆 Click Me — I Respond to Every Trigger!
+    </div>
+    <div class="console-area" id="consoleArea">
+      <div class="console-line dim">[Trigo.js] Console ready. All 483+ triggers loaded.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built with <strong>Trigo.js</strong> — The Most Powerful Web Trigger Library</p>
+    <p style="margin-top:6px;">
+      <a href="https://github.com/spideythedev/Trigo" target="_blank">GitHub</a> ·
+      <a href="https://learntrigo.vercel.app" target="_blank">Learn Trigo.js</a> ·
+      <a href="#">Documentation</a>
+    </p>
+    <p style="margin-top:12px;color:var(--text3);font-size:0.78rem;">MIT License · Zero Dependencies · 483+ Triggers</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/gh/spideythedev/Trigo@main/trigo.min.js"></script>
+  <script>
+    function log(msg, type) {
+      type = type || '';
+      var area = document.getElementById('consoleArea');
+      var line = document.createElement('div');
+      line.className = 'console-line ' + type;
+      line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+      area.appendChild(line);
+      area.scrollTop = area.scrollHeight;
     }
 
-    function showToast(message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.textContent = message;
-      container.appendChild(toast);
-      setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 2500);
+    function waitForTrigo(cb) {
+      if (typeof Trigo !== 'undefined' && Trigo.version) { cb(); }
+      else { setTimeout(function() { waitForTrigo(cb); }, 80); }
     }
 
-    document.getElementById('deviceInfo').textContent = JSON.stringify(trigo.device.info());
-
-    window.demoVibrate = () => {
-      trigo.vibrate(200, { log: 'debug' });
-      addLog('📳 Vibrate 200ms triggered', 'info');
-      showToast('Vibrating...');
-    };
-
-    window.demoVibrateSOS = () => {
-      trigo.vibrate.sos();
-      addLog('📳 Vibrate SOS triggered', 'info');
-    };
-
-    window.demoVibrateHeartbeat = () => {
-      trigo.vibrate.heartbeat();
-      addLog('📳 Vibrate Heartbeat triggered', 'info');
-    };
-
-    window.demoFlashlightToggle = () => {
-      trigo.flashlight.toggle({ log: 'debug' });
-      addLog('🔦 Flashlight toggled', 'info');
-    };
-
-    window.demoFlashlightBlink = () => {
-      trigo.flashlight.blink({ count: 5, interval: 200 });
-      addLog('🔦 Flashlight blinking 5 times', 'info');
-    };
-
-    window.demoFlashlightSOS = () => {
-      trigo.flashlight.sos();
-      addLog('🔦 Flashlight SOS pattern', 'info');
-    };
-
-    window.demoCameraOpen = async () => {
-      try {
-        const video = document.createElement('video');
-        video.style.cssText = 'position:fixed;top:20px;right:20px;width:200px;border-radius:12px;z-index:99999;border:2px solid #7c3aed;';
-        video.autoplay = true;
-        video.playsInline = true;
-        document.body.appendChild(video);
-        await trigo.camera.open({ video, facing: 'environment' });
-        addLog('📸 Camera opened', 'info');
-        setTimeout(() => { trigo.camera.close(); video.remove(); addLog('📸 Camera closed', 'info'); }, 5000);
-      } catch (e) {
-        addLog(`📸 Camera error: ${e.message}`, 'error');
-      }
-    };
-
-    window.demoCameraCapture = async () => {
-      try {
-        await trigo.camera.open();
-        const result = await trigo.camera.capture();
-        addLog(`📸 Photo captured: ${result.size} bytes`, 'info');
-        trigo.camera.close();
-        const img = document.createElement('img');
-        img.src = result.url;
-        img.style.cssText = 'position:fixed;top:20px;right:20px;width:200px;border-radius:12px;z-index:99999;border:2px solid #7c3aed;';
-        document.body.appendChild(img);
-        setTimeout(() => img.remove(), 5000);
-      } catch (e) {
-        addLog(`📸 Capture error: ${e.message}`, 'error');
-      }
-    };
-
-    window.demoMicRecord = async () => {
-      try {
-        addLog('🎤 Recording 3 seconds...', 'info');
-        const result = await trigo.microphone.record({ duration: 3000 });
-        addLog(`🎤 Recorded: ${result.size} bytes, ${result.duration}ms`, 'info');
-        const audio = new Audio(result.url);
-        audio.play();
-      } catch (e) {
-        addLog(`🎤 Mic error: ${e.message}`, 'error');
-      }
-    };
-
-    window.demoMicLevel = async () => {
-      try {
-        trigo.microphone.level({
-          continuous: true,
-          onLevel: (level) => { document.getElementById('demoBox').style.transform = `scale(${1 + level/100})`; }
-        });
-        addLog('🎤 Mic level meter active (watch the demo box!)', 'info');
-        setTimeout(() => trigo.microphone.stop(), 5000);
-      } catch (e) {
-        addLog(`🎤 Level error: ${e.message}`, 'error');
-      }
-    };
-
-    window.demoLocation = async () => {
-      try {
-        const pos = await trigo.location.get();
-        addLog(`📍 Location: ${pos.latitude.toFixed(4)}, ${pos.longitude.toFixed(4)}`, 'info');
-        showToast(`📍 ${pos.latitude.toFixed(4)}, ${pos.longitude.toFixed(4)}`);
-      } catch (e) {
-        addLog(`📍 Location error: ${e.message}`, 'error');
-      }
-    };
-
-    window.demoSpeed = async () => {
-      try {
-        const result = await trigo.location.speed();
-        addLog(`🏃 Speed: ${result.speedKmh} km/h`, 'info');
-      } catch (e) {
-        addLog(`🏃 Speed error: ${e.message}`, 'error');
-      }
-    };
-
-    window.demoClipboard = async () => {
-      await trigo.clipboard.copy('Hello from Trigo.js! 🚀');
-      addLog('📋 Text copied to clipboard', 'info');
-      showToast('Copied!');
-    };
-
-    window.demoClipboardPaste = async () => {
-      const result = await trigo.clipboard.paste();
-      addLog(`📋 Pasted: ${result.text}`, 'info');
-    };
-
-    window.demoShare = async () => {
-      await trigo.share.url({ url: 'https://trigo.js', title: 'Trigo.js', text: 'Check out Trigo.js!' });
-      addLog('📤 Share dialog opened', 'info');
-    };
-
-    window.demoShareText = async () => {
-      await trigo.share.text({ text: 'Hello from Trigo.js! The most powerful web trigger library.' });
-      addLog('📤 Share text dialog opened', 'info');
-    };
-
-    window.demoNotify = async () => {
-      await trigo.notify('Trigo.js Demo', {
-        body: 'This is a test notification!',
-        icon: './trigo.png',
-        vibrate: [200, 100, 200]
-      });
-      addLog('🔔 Notification sent', 'info');
-    };
-
-    window.demoNotifySchedule = () => {
-      trigo.notify.schedule('Scheduled!', 5000, {
-        body: 'This was scheduled 5 seconds ago.',
-        icon: './trigo.png'
-      });
-      addLog('🔔 Notification scheduled in 5 seconds', 'info');
-      showToast('Notification in 5s...');
-    };
-
-    window.demoSMS = () => {
-      trigo.sms('1234567890', 'Hello from Trigo.js!');
-      addLog('📱 SMS trigger fired', 'info');
-    };
-
-    window.demoEmail = () => {
-      trigo.email('hello@trigo.js', { subject: 'Hello from Trigo.js', body: 'Testing Trigo.js email trigger!' });
-      addLog('📧 Email trigger fired', 'info');
-    };
-
-    window.demoFullscreen = () => {
-      trigo.fullscreen.enter();
-      addLog('🖥️ Entered fullscreen', 'info');
-    };
-
-    window.demoFullscreenExit = () => {
-      trigo.fullscreen.exit();
-      addLog('🖥️ Exited fullscreen', 'info');
-    };
-
-    window.demoFadeIn = () => {
-      const box = document.getElementById('demoBox');
-      box.style.display = '';
-      trigo.fade.in(box, { duration: 800 });
-      addLog('🌫️ Fade In — 800ms', 'info');
-    };
-
-    window.demoFadeOut = () => {
-      trigo.fade.out('#demoBox', { duration: 800 });
-      addLog('🌫️ Fade Out — 800ms', 'info');
-    };
-
-    window.demoFadeToggle = () => {
-      trigo.fade.toggle('#demoBox');
-      addLog('🌫️ Fade Toggle', 'info');
-    };
-
-    window.demoBlink = () => {
-      trigo.blink('#demoBox', { interval: 300, count: 6 });
-      addLog('👁️ Blink — 6 times, 300ms', 'info');
-    };
-
-    window.demoFlash = () => {
-      trigo.flash('#demoBox', { count: 5, interval: 80, color: '#7c3aed' });
-      addLog('⚡ Flash — 5 times, 80ms', 'info');
-    };
-
-    window.demoPulse = () => {
-      trigo.pulse('#demoBox', { scale: 1.1, count: 4 });
-      addLog('💫 Pulse — 4 times, 1.1x scale', 'info');
-    };
-
-    window.demoGlow = () => {
-      trigo.glow('#demoBox', { color: '#7c3aed', spread: 30, count: 4 });
-      addLog('✨ Glow — 4 times, purple', 'info');
-    };
-
-    window.demoShake = () => {
-      trigo.shake('#demoBox', { intensity: 8, duration: 500 });
-      addLog('🪨 Shake — intensity 8, 500ms', 'info');
-    };
-
-    window.demoBounce = () => {
-      trigo.bounce('#demoBox', { height: 25, count: 4 });
-      addLog('🏀 Bounce — 4 times, 25px', 'info');
-    };
-
-    window.demoSlideIn = () => {
-      const box = document.getElementById('demoBox');
-      box.style.display = '';
-      trigo.slide.in(box, { from: 'bottom', distance: 60, duration: 600 });
-      addLog('📐 Slide In — from bottom', 'info');
-    };
-
-    window.demoSlideOut = () => {
-      trigo.slide.out('#demoBox', { to: 'right', distance: 60, duration: 600 });
-      addLog('📐 Slide Out — to right', 'info');
-    };
-
-    window.demoZoomIn = () => {
-      const box = document.getElementById('demoBox');
-      box.style.display = '';
-      trigo.zoom.in(box, { from: 0.3, duration: 600 });
-      addLog('🔍 Zoom In — from 0.3x', 'info');
-    };
-
-    window.demoSpin = () => {
-      trigo.spin('#demoBox', { speed: 1500, infinite: true });
-      addLog('🔄 Spin — 1500ms continuous', 'info');
-      setTimeout(() => trigo.spin.stop('#demoBox'), 5000);
-    };
-
-    window.demoReveal = () => {
-      trigo.reveal('.card', { animation: 'fadeUp', threshold: 0.1, stagger: 100 });
-      addLog('👀 Reveal setup — cards animate on scroll', 'info');
-    };
-
-    window.demoHolographic = () => {
-      trigo.holographic('#demoBox', { maxTilt: 20, scale: 1.05, glare: true, colorShift: true });
-      addLog('🌈 Holographic activated — move mouse!', 'info');
-      showToast('Hover over the demo box!');
-    };
-
-    window.demoRipple = () => {
-      trigo.ripple('.btn', { color: 'rgba(255,255,255,0.5)' });
-      addLog('💧 Ripple effect enabled on all buttons', 'info');
-    };
-
-    window.demoTypewriter = () => {
-      trigo.typewriter('#demoBox', {
-        text: 'Hello from Trigo.js! The most powerful web trigger library ever built. 🚀',
-        speed: 40,
-        cursor: true
-      });
-      addLog('⌨️ Typewriter started', 'info');
-    };
-
-    window.demoScramble = () => {
-      trigo.scramble('#demoBox', {
-        text: 'Trigo.js — Unlock the web.',
-        duration: 1500
-      });
-      addLog('🔤 Scramble effect started', 'info');
-    };
-
-    window.demoGradient = () => {
-      trigo.gradient('#demoBox', {
-        colors: ['#7c3aed', '#a78bfa', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
-        duration: 4000,
-        type: 'linear'
-      });
-      addLog('🎨 Gradient animation started', 'info');
-    };
-
-    window.demoParallax = () => {
-      trigo.parallax('.card', { speed: 0.3 });
-      addLog('🏔️ Parallax enabled on cards', 'info');
-    };
-
-    window.demoConfetti = () => {
-      trigo.confetti({
-        count: 80,
-        colors: ['#7c3aed', '#a78bfa', '#10b981', '#f59e0b', '#ef4444', '#3b82f6'],
-        spread: 120,
-        origin: { x: 0.5, y: 0.4 }
-      });
-      addLog('🎉 Confetti launched!', 'info');
-    };
-
-    window.demoConfettiBurst = () => {
-      trigo.confetti({ count: 40, spread: 60, origin: { x: 0.3, y: 0.5 } });
-      setTimeout(() => trigo.confetti({ count: 40, spread: 60, origin: { x: 0.7, y: 0.5 } }), 300);
-      setTimeout(() => trigo.confetti({ count: 40, spread: 60, origin: { x: 0.5, y: 0.3 } }), 600);
-      addLog('🎉 Confetti burst x3!', 'info');
-    };
-
-    window.demoParticles = () => {
-      trigo.particles({
-        count: 80,
-        color: '#a78bfa',
-        connectDistance: 120,
-        interactive: true
-      });
-      addLog('✨ Particles started — move mouse!', 'info');
-    };
-
-    window.demoParticlesStop = () => {
-      trigo.particles.stopAll();
-      addLog('✨ Particles stopped', 'info');
-    };
-
-    window.demoSnow = () => {
-      trigo.snow({ count: 80, speed: 1.5 });
-      addLog('❄️ Snow started', 'info');
-    };
-
-    window.demoSnowStop = () => {
-      trigo.snow.stopAll();
-      addLog('❄️ Snow stopped', 'info');
-    };
-
-    window.demoFire = () => {
-      trigo.fire({ count: 60, intensity: 1 });
-      addLog('🔥 Fire ignited', 'info');
-    };
-
-    window.demoFireStop = () => {
-      trigo.fire.stopAll();
-      addLog('🔥 Fire extinguished', 'info');
-    };
-
-    window.demoSpeak = () => {
-      trigo.speak('Hello! Welcome to Trigo.js. The most powerful web trigger library ever built.', { rate: 1, pitch: 1 });
-      addLog('🗣️ Speaking...', 'info');
-    };
-
-    window.demoSpeakStop = () => {
-      trigo.speak.stop();
-      addLog('🗣️ Speech stopped', 'info');
-    };
-
-    window.demoListen = async () => {
-      try {
-        const result = await trigo.listen({ continuous: false, lang: 'en-US' });
-        addLog(`🎙️ Heard: "${result.text}"`, 'info');
-        document.getElementById('demoBox').textContent = result.text || 'Listening...';
-      } catch (e) {
-        addLog(`🎙️ Listen error: ${e.message}`, 'error');
-      }
-    };
-
-    window.demoListenStop = () => {
-      trigo.listen.stop();
-      addLog('🎙️ Listening stopped', 'info');
-    };
-
-    window.demoBeep = () => {
-      trigo.beep({ frequency: 800, duration: 200, count: 1 });
-      addLog('🔊 Beep — 800Hz, 200ms', 'info');
-    };
-
-    window.demoBeepMelody = () => {
-      const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
-      notes.forEach((freq, i) => {
-        setTimeout(() => trigo.beep({ frequency: freq, duration: 150 }), i * 150);
-      });
-      addLog('🔊 Melody playing...', 'info');
-    };
-
-    document.getElementById('demoBox').addEventListener('click', function() {
-      trigo.confetti({ count: 30, spread: 60, origin: { x: 0.5, y: 0.5 } });
-      trigo.pulse(this, { scale: 1.05, count: 2 });
-      addLog('🖱️ Demo box clicked — confetti + pulse!', 'info');
+    waitForTrigo(function() {
+      window.t = Trigo;
+      document.getElementById('statDevice').textContent = Trigo.is.mobile ? 'Mobile' : 'Desktop';
+      log('Trigo.js v' + Trigo.version + ' ready.', 'info');
+      log('Device: ' + (Trigo.is.mobile ? 'Mobile' : 'Desktop') + ' — ' + (Trigo.is.ios ? 'iOS' : Trigo.is.android ? 'Android' : 'Desktop OS'), 'info');
+      log('483+ triggers at your command. Explore the cards above!', 'info');
+      console.log('%c🚀 Trigo.js %cv' + Trigo.version + ' %cready. %cwindow.Trigo %cavailable.',
+        'font-size:16px;','color:#a78bfa;','','font-weight:bold;','');
+      console.log('%cTry: %cTrigo.confetti() %cor %cTrigo.vibrate(200)',
+        '','color:#10b981;font-weight:bold;','','color:#7c3aed;font-weight:bold;');
     });
 
-    if (trigo.is.desktop) {
-      addLog('💻 Running on Desktop — some triggers limited', 'info');
-    } else if (trigo.is.mobile) {
-      addLog('📱 Running on Mobile — full device triggers available', 'info');
-    }
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
 
-    addLog(`✅ Trigo.js v${trigo.version} fully initialized`, 'info');
-    addLog(`📊 Supported features: ${Object.entries(trigo.support()).filter(([,v]) => v).length} APIs available`, 'info');
+    document.querySelectorAll('#mobileMenu a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('mobileMenu').classList.remove('active');
+      });
+    });
 
-    console.log('Trigo.js Demo Ready', trigo);
+    document.getElementById('demoBox').addEventListener('click', function() {
+      if (window.t) {
+        t.confetti({ count: 40, spread: 70, origin: { x: 0.5, y: 0.5 } });
+        t.pulse(this, { scale: 1.05, count: 2 });
+        log('Demo box clicked — confetti + pulse!', 'info');
+      }
+    });
+
+    window.demoCamera = function() {
+      if (!window.t) return;
+      var video = document.createElement('video');
+      video.style.cssText = 'position:fixed;top:20px;right:20px;width:220px;border-radius:14px;z-index:99999;border:2px solid #7c3aed;box-shadow:0 10px 30px rgba(0,0,0,0.5);';
+      video.autoplay = true;
+      video.playsInline = true;
+      document.body.appendChild(video);
+      t.camera.open({ video: video, facing: 'environment' }).then(function() {
+        log('Camera opened — preview in corner', 'info');
+      }).catch(function(e) {
+        log('Camera error: ' + e.message, 'error');
+        video.remove();
+      });
+      setTimeout(function() { t.camera.close(); video.remove(); log('Camera closed', 'info'); }, 8000);
+    };
+
+    window.demoMic = function() {
+      if (!window.t) return;
+      t.microphone.record({ duration: 3000 }).then(function(r) {
+        log('Recorded: ' + r.size + ' bytes', 'info');
+      }).catch(function(e) {
+        log('Mic error: ' + e.message, 'error');
+      });
+    };
+
+    window.demoLocation = function() {
+      if (!window.t) return;
+      t.location.get().then(function(p) {
+        log('Location: ' + p.latitude.toFixed(4) + ', ' + p.longitude.toFixed(4), 'info');
+      }).catch(function(e) {
+        log('Location error: ' + e.message, 'error');
+      });
+    };
+
+    window.demoSpeed = function() {
+      if (!window.t) return;
+      t.location.speed().then(function(s) {
+        log('Speed: ' + s.speedKmh + ' km/h', 'info');
+      }).catch(function(e) {
+        log('Speed error: ' + e.message, 'error');
+      });
+    };
+
+    window.demoParticlesStart = function() {
+      if (!window.t) return;
+      t.particles({ count: 80, color: '#a78bfa', connectDistance: 120, interactive: true });
+      log('Particles started — move your mouse!', 'info');
+    };
+
+    window.demoListen = function() {
+      if (!window.t) return;
+      t.listen({ continuous: false }).then(function(r) {
+        log('Heard: "' + r.text + '"', 'info');
+        document.getElementById('demoBox').textContent = r.text || '...';
+      }).catch(function(e) {
+        log('Listen error: ' + e.message, 'error');
+      });
+    };
+
+    window.demoMelody = function() {
+      if (!window.t) return;
+      var notes = [523, 587, 659, 698, 784, 880, 988, 1047];
+      notes.forEach(function(f, i) {
+        setTimeout(function() { t.beep({ frequency: f, duration: 150 }); }, i * 150);
+      });
+      log('Melody playing...', 'info');
+    };
+
+    window.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'SCRIPT' && e.target.src.includes('trigo')) {
+        log('Failed to load Trigo.js from CDN.', 'error');
+        document.getElementById('statDevice').textContent = 'Offline';
+      }
+    });
   </script>
 </body>
 </html>
