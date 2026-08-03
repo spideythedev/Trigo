@@ -127,42 +127,42 @@ const getVoices = (config = {}) => {
 
 engine.register('speak', speakHandler);
 
-const speak = (text, options = {}) => {
+const speakApi = (text, options = {}) => {
   const config = isObject(options) ? options : {};
   if (isString(text)) config.text = text;
   return engine.execute('speak', 'speak', config);
 };
 
-speak.text = (text, options = {}) => {
+speakApi.text = (text, options = {}) => {
   const config = isObject(options) ? options : {};
   if (isString(text)) config.text = text;
   return engine.execute('speak', 'speak', config);
 };
 
-speak.stop = () => engine.execute('speak', 'stop', {});
-speak.pause = () => engine.execute('speak', 'pause', {});
-speak.resume = () => engine.execute('speak', 'resume', {});
-speak.voices = (lang) => engine.execute('speak', 'voice', { lang });
-speak.rate = (rate, text, options = {}) => {
+speakApi.stop = () => engine.execute('speak', 'stop', {});
+speakApi.pause = () => engine.execute('speak', 'pause', {});
+speakApi.resume = () => engine.execute('speak', 'resume', {});
+speakApi.voices = (lang) => engine.execute('speak', 'voice', { lang });
+speakApi.rate = (rate, text, options = {}) => {
   const config = isObject(options) ? options : {};
   config.rate = rate;
   if (text) config.text = text;
   return engine.execute('speak', 'speak', config);
 };
-speak.pitch = (pitch, text, options = {}) => {
+speakApi.pitch = (pitch, text, options = {}) => {
   const config = isObject(options) ? options : {};
   config.pitch = pitch;
   if (text) config.text = text;
   return engine.execute('speak', 'speak', config);
 };
-speak.volume = (volume, text, options = {}) => {
+speakApi.volume = (volume, text, options = {}) => {
   const config = isObject(options) ? options : {};
   config.volume = volume;
   if (text) config.text = text;
   return engine.execute('speak', 'speak', config);
 };
-speak.isSpeaking = () => isSpeaking;
-speak.isPaused = () => isPaused;
+speakApi.isSpeaking = () => isSpeaking;
+speakApi.isPaused = () => isPaused;
 
-export { speak };
-export default speak;
+export { speakApi as speak };
+export default speakApi;
