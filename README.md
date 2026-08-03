@@ -11,7 +11,7 @@ Interactive tutorials and playground for **Trigo.js** — the most powerful, mos
 ## Live
 
 - **Learn Trigo.js** → [learntrigo.vercel.app](https://learntrigo.vercel.app)
-- **Trigo.js Home** → [trigo.vercel.app](https://trigo.vercel.app)
+- **Trigo.js Home** → [trigojs-one.vercel.app](https://trigojs-one.vercel.app)
 - **GitHub** → [github.com/spideythedev/Trigo](https://github.com/spideythedev/Trigo)
 
 ---
