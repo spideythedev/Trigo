@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=24&pause=2500&color=6366F1&center=true&vCenter=true&width=850&lines=483%2B+Powerful+Triggers;Zero+Dependencies;Animations+•+Canvas+•+Device+APIs;Built+for+Modern+Web+Applications">
+  <img src="./assets/banner.svg" alt="banner">
 </p>
 
 <p align="center">
