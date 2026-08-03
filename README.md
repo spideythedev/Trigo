@@ -1,97 +1,241 @@
-# Learn Trigo.js
+<p align="center">
+  <img src="https://raw.githubusercontent.com/spideythedev/Trigo/main/trigo.png" width="140" alt="Trigo.js">
+</p>
 
-![Trigo.js](https://raw.githubusercontent.com/spideythedev/Trigo/main/trigo.png)
+<h1 align="center">Trigo.js</h1>
 
-Interactive tutorials and playground for **Trigo.js** — the most powerful, most customizable web trigger library ever built.
+<p align="center">
+  <b>The Ultimate JavaScript Trigger Engine</b>
+  <br>
+  Build stunning web experiences with a single, elegant API.
+</p>
 
-**483+ triggers. Zero dependencies. Mobile & Desktop.**
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=24&pause=2500&color=6366F1&center=true&vCenter=true&width=850&lines=483%2B+Powerful+Triggers;Zero+Dependencies;Animations+•+Canvas+•+Device+APIs;Built+for+Modern+Web+Applications">
+</p>
+
+<p align="center">
+  <a href="https://trigojs-one.vercel.app">
+    <img src="https://img.shields.io/badge/Website-6366F1?style=for-the-badge&logo=googlechrome&logoColor=white">
+  </a>
+  <a href="https://learntrigo.vercel.app">
+    <img src="https://img.shields.io/badge/Documentation-0EA5E9?style=for-the-badge&logo=gitbook&logoColor=white">
+  </a>
+  <a href="https://github.com/spideythedev/Trigo">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github">
+  </a>
+</p>
+
+<p align="center">
+
+<img src="https://img.shields.io/github/stars/spideythedev/Trigo?style=for-the-badge">
+
+<img src="https://img.shields.io/github/forks/spideythedev/Trigo?style=for-the-badge">
+
+<img src="https://img.shields.io/github/issues/spideythedev/Trigo?style=for-the-badge">
+
+<img src="https://img.shields.io/github/license/spideythedev/Trigo?style=for-the-badge">
+
+<img src="https://img.shields.io/github/last-commit/spideythedev/Trigo?style=for-the-badge">
+
+</p>
+
+<p align="center">
+
+<img src="https://img.shields.io/badge/483+-Triggers-6366F1?style=for-the-badge">
+
+<img src="https://img.shields.io/badge/Zero-Dependencies-22C55E?style=for-the-badge">
+
+<img src="https://img.shields.io/badge/CDN-Ready-06B6D4?style=for-the-badge">
+
+<img src="https://img.shields.io/badge/Mobile-Friendly-10B981?style=for-the-badge">
+
+<img src="https://img.shields.io/badge/Canvas-Effects-F97316?style=for-the-badge">
+
+<img src="https://img.shields.io/badge/MIT-License-F59E0B?style=for-the-badge">
+
+</p>
 
 ---
 
-## Live
+# ⚡ Why Trigo.js?
 
-- **Learn Trigo.js** → [learntrigo.vercel.app](https://learntrigo.vercel.app)
-- **Trigo.js Home** → [trigojs-one.vercel.app](https://trigojs-one.vercel.app)
-- **GitHub** → [github.com/spideythedev/Trigo](https://github.com/spideythedev/Trigo)
+Trigo.js is an all-in-one JavaScript library that lets you build rich web experiences with **483+ built-in triggers**.
+
+Instead of importing multiple libraries for animations, browser APIs, particles, audio, and hardware access, Trigo.js provides a single, lightweight solution with **zero dependencies**.
+
+## ✨ Highlights
+
+- 🚀 483+ Built-in Triggers
+- 📦 Zero Dependencies
+- ⚡ Tiny & Fast
+- 🎨 Animation Engine
+- 🎆 Canvas & Particle Effects
+- 📱 Mobile & Desktop Ready
+- 🔊 Audio Utilities
+- 📍 Device Hardware APIs
+- 🌍 Modern Browser APIs
+- ❤️ Easy to Learn
 
 ---
 
-## Lessons
+# 🚀 Quick Start
 
-| Lesson | Description |
-|--------|-------------|
-| Introduction | Installation, basic usage, default vs custom config |
-| Device Triggers | Vibration, flashlight, camera, geolocation, clipboard, notifications, fullscreen |
-| Visual Effects | Fade, slide, zoom, shake, pulse, glow, spin, bounce, holographic 3D, typewriter, scramble, gradient |
-| Canvas Effects | Confetti, particle networks, snowfall, procedural fire |
-| Audio Triggers | Text-to-speech, speech recognition, beep generation |
+## CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/spideythedev/Trigo/trigo.min.js"></script>
+```
 
 ---
 
-## Playground
-
-Write and run Trigo.js code directly in the browser. Includes snippet buttons for quick experimentation.
+## First Trigger
 
 ```javascript
-Trigo.confetti({ count: 80, spread: 120 });
-Trigo.vibrate(200);
-Trigo.notify('Hello!');
-Trigo.fade.in('#element');
+trigo("#card")
+  .fadeIn(600)
+  .slideUp(30)
+  .glow("#6366F1")
+  .confetti()
+  .speak("Welcome to Trigo.js");
 ```
 
 ---
 
-Tech Stack
+# 📚 Documentation
 
-· Vanilla JavaScript — no frameworks
-· Highlight.js — syntax highlighting
-· Lucide Icons — beautiful, consistent icon set
-· Light/Dark Mode — persisted in localStorage
-· Fully Responsive — mobile, tablet, desktop
+| Resource | Link |
+|----------|------|
+| 🌐 Website | https://trigojs-one.vercel.app |
+| 📖 Learn Trigo.js | https://learntrigo.vercel.app |
+| 💻 GitHub | https://github.com/spideythedev/Trigo |
 
 ---
 
-File Structure
+# 🎮 Playground
 
-```
+Experiment with Trigo.js directly in your browser.
+
+### Features
+
+- Live Editor
+- Instant Preview
+- One-click Snippets
+- Syntax Highlighting
+- Ctrl + Enter Support
+- Visual Trigger Testing
+
+---
+
+# ✨ Features
+
+| 🚀 Performance | 🎨 Effects | 📱 Device APIs |
+|:--:|:--:|:--:|
+| Zero Dependencies | Fade | Camera |
+| Tiny Bundle | Ripple | Flashlight |
+| Fast Execution | Glow | Clipboard |
+| CDN Ready | Confetti | Geolocation |
+| Optimized | Particles | Notifications |
+
+| 🔊 Audio | 🌐 Browser APIs | 💻 Developer Experience |
+|:--:|:--:|:--:|
+| Text-to-Speech | Share API | Simple API |
+| Speech Recognition | Fullscreen | Easy Integration |
+| Beep Generator | Clipboard | Modern Syntax |
+| Voice Detection | Local Storage | Lightweight |
+
+---
+
+# 📖 Lessons
+
+| Lesson | Description |
+|---------|-------------|
+| Introduction | Learn installation and basics |
+| Device APIs | Camera, vibration, flashlight, clipboard |
+| Visual Effects | Fade, glow, ripple, shake, bounce |
+| Canvas | Confetti, particles, snowfall |
+| Audio | Speech synthesis & recognition |
+
+---
+
+# 📂 Project Structure
+
+```text
 learntrigo/
-├── index.html              # Homepage
-├── playground.html          # Live code playground
-├── lessons/
-│   ├── intro.html           # Introduction
-│   ├── device.html          # Device triggers
-│   ├── visual.html          # Visual effects
-│   ├── canvas.html          # Canvas effects
-│   └── audio.html           # Audio triggers
-├── trigo.png                # Logo
-├── vercel.json              # Vercel config
-└── README.md                # You are here
+├── index.html
+├── playground.html
+├── README.md
+├── trigo.png
+├── vercel.json
+└── lessons/
+    ├── intro.html
+    ├── device.html
+    ├── visual.html
+    ├── canvas.html
+    └── audio.html
 ```
 
 ---
 
-Deploy
+# 🌟 Why Developers Love Trigo.js
 
-Deployed on Vercel with zero configuration.
+✅ One library instead of many
 
-```bash
-vercel
-```
+✅ Easy to integrate
 
----
+✅ Lightweight
 
-Built by
+✅ Modern API
 
-Fahad with passion — github.com/spideythedev
+✅ Browser hardware support
 
----
+✅ Amazing visual effects
 
-License
-
-MIT
-
-
+✅ Production Ready
 
 ---
 
-Not under Flamics
+# 🚀 Deployment
+
+Deploy on any static hosting.
+
+- Vercel
+- Netlify
+- Cloudflare Pages
+- Firebase Hosting
+- GitHub Pages
+
+---
+
+# ❤️ Contributing
+
+Contributions are always welcome.
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Open a Pull Request
+
+---
+
+# 📄 License
+
+Released under the **MIT License**.
+
+---
+
+<p align="center">
+
+Made with ❤️ by <b>Fahad Malik</b>
+
+<br><br>
+
+<a href="https://trigojs-one.vercel.app">Website</a> •
+<a href="https://learntrigo.vercel.app">Documentation</a> •
+<a href="https://github.com/spideythedev/Trigo">GitHub</a>
+
+<br><br>
+
+⭐ **If Trigo.js helps you build something awesome, consider starring the repository!**
+
+</p>
