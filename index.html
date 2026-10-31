@@ -4,93 +4,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Trigo.js — A powerful, customizable JavaScript web trigger library. Explore device APIs, visual effects, canvas, audio and more.">
-  <meta name="keywords" content="trigo.js, javascript, web triggers, device api, sensors, animations">
-  <meta property="og:title" content="Trigo.js — The Web, Within Reach">
-  <meta property="og:description" content="One JavaScript library for interactive web experiences, device capabilities and visual effects.">
-  <meta property="og:image" content="./trigo.png">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Trigo.js — The Web, Within Reach</title>
-  <link rel="icon" href="./trigo.png" type="image/png">
+  <meta name="theme-color" content="#f8f9fb">
+  <meta name="description" content="Trigo.js — Command the Web. A JavaScript library for powerful browser interactions.">
+  <title>Trigo.js — Command the Web</title>
+
+  <link rel="icon" href="./trigo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap');
-
     :root {
       color-scheme: light;
-      --bg: #fff;
-      --soft: #f8f9fb;
-      --surface: #fff;
-      --surface-hover: #f7f8fa;
-      --text: #17191f;
-      --muted: #686f7c;
-      --subtle: #9299a5;
-      --border: #e9ebef;
-      --border-strong: #d9dde4;
-      --accent: #6655db;
-      --accent-hover: #5443c5;
-      --accent-soft: #f0eeff;
-      --green: #16875b;
-      --red: #d44848;
-      --yellow: #a66a10;
-      --blue: #3271cf;
-      --radius: 12px;
-      --radius-lg: 18px;
+      --bg: #f8f9fb;
+      --surface: #ffffff;
+      --surface-soft: #f2f4f7;
+      --text: #17191d;
+      --muted: #737984;
+      --line: #e7e9ed;
+      --accent: #5b5ce2;
+      --accent-soft: #eeeeff;
+      --radius: 18px;
+      --shadow: 0 12px 36px rgba(20, 25, 40, .055);
       --mono: "DM Mono", monospace;
-      --font: "Inter", system-ui, sans-serif;
-      --shadow: 0 12px 40px rgba(20, 25, 40, .045);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 90px;
+      scroll-padding-top: 100px;
     }
 
     body {
+      margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: var(--font);
-      font-size: 14px;
-      line-height: 1.7;
+      font-family: Inter, sans-serif;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
-    button, input { font: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    a { color: inherit; text-decoration: none; }
-
-    button:focus-visible, a:focus-visible, input:focus-visible {
-      outline: 3px solid rgba(102,85,219,.35);
-      outline-offset: 3px;
+    button {
+      font: inherit;
     }
 
     .container {
-      width: min(1160px, calc(100% - 48px));
-      margin: auto;
+      width: min(1100px, calc(100% - 44px));
+      margin-inline: auto;
     }
 
-    .muted { color: var(--muted); }
-    .mono { font-family: var(--mono); }
-
-    /* Navigation */
-
-    .nav {
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
+      z-index: 50;
+      border-bottom: 1px solid rgba(231, 233, 237, .85);
+      background: rgba(248, 249, 251, .88);
+      backdrop-filter: blur(18px);
     }
 
-    .nav-inner {
-      height: 68px;
+    .nav {
+      height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -98,112 +81,97 @@
     }
 
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       font-size: 17px;
       font-weight: 800;
       letter-spacing: -.7px;
-      flex-shrink: 0;
     }
 
     .brand img {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       object-fit: contain;
+      border-radius: 10px;
     }
 
     .brand small {
-      font-size: 10px;
-      color: var(--subtle);
+      color: var(--muted);
+      font-size: 11px;
       font-weight: 500;
-      margin-left: 2px;
+      letter-spacing: 0;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 30px;
     }
 
     .nav-links a {
-      color: var(--muted);
+      color: #626975;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       transition: color .2s;
     }
 
     .nav-links a:hover,
-    .nav-links a.active { color: var(--text); }
+    .nav-links a.active {
+      color: var(--accent);
+    }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
     }
 
     .button {
-      min-height: 39px;
-      padding: 0 16px;
+      min-height: 42px;
+      padding: 0 17px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      border: 1px solid var(--border-strong);
-      border-radius: 9px;
-      background: white;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--surface);
       color: var(--text);
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: .2s ease;
+      transition: transform .2s, border-color .2s, background .2s;
     }
 
     .button:hover {
-      background: var(--surface-hover);
-      border-color: #c8cbd4;
+      transform: translateY(-2px);
+      border-color: #c8c9ed;
     }
 
     .button.primary {
+      background: var(--text);
       color: white;
-      background: var(--accent);
-      border-color: var(--accent);
+      border-color: var(--text);
     }
 
     .button.primary:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-    }
-
-    .button.small {
-      min-height: 32px;
-      padding: 0 11px;
-      font-size: 11px;
+      background: #343640;
     }
 
     .menu-toggle {
       display: none;
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--border);
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
       background: white;
-      border-radius: 9px;
       cursor: pointer;
       font-size: 20px;
     }
 
-    /* Hero */
-
     .hero {
-      padding: 104px 0 72px;
-      border-bottom: 1px solid var(--border);
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(102,85,219,.07), transparent 55%);
-    }
-
-    .hero-content {
-      max-width: 800px;
-      margin: auto;
+      padding: 112px 0 105px;
       text-align: center;
     }
 
@@ -211,1948 +179,931 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid var(--border);
-      padding: 6px 11px;
+      padding: 8px 12px;
+      border: 1px solid #e6e5fa;
       border-radius: 30px;
-      color: var(--muted);
+      background: var(--accent-soft);
+      color: #5556c8;
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .5px;
-      margin-bottom: 25px;
     }
 
-    .status-dot {
+    .eyebrow-dot {
       width: 7px;
       height: 7px;
-      background: #23a875;
       border-radius: 50%;
-      box-shadow: 0 0 0 3px #e5f7ef;
+      background: #6869e8;
     }
 
-    .hero h1 {
-      font-size: clamp(42px, 7vw, 74px);
-      letter-spacing: -4.5px;
-      line-height: 1.08;
+    h1 {
+      max-width: 800px;
+      margin: 27px auto 18px;
+      font-size: clamp(46px, 8vw, 84px);
+      line-height: .99;
+      letter-spacing: -6px;
       font-weight: 800;
     }
 
-    .hero h1 span { color: var(--accent); }
+    h1 span {
+      color: var(--accent);
+    }
 
     .hero-description {
-      max-width: 610px;
-      margin: 22px auto 0;
-      font-size: 16px;
-      line-height: 1.9;
+      max-width: 570px;
+      margin: 0 auto;
       color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
     }
 
     .hero-actions {
+      margin-top: 30px;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
-      margin-top: 29px;
+      flex-wrap: wrap;
+      gap: 11px;
     }
 
-    .hero-actions .button {
-      min-height: 45px;
-      padding: 0 20px;
-    }
-
-    .install {
-      max-width: 520px;
-      margin: 36px auto 0;
+    .hero-meta {
+      margin-top: 48px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 9px 10px 9px 17px;
-      background: #171923;
-      border: 1px solid #292b38;
-      border-radius: 11px;
-      color: #d6d9e3;
-      text-align: left;
-    }
-
-    .install code {
-      font: 12px var(--mono);
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-
-    .install code span { color: #a99afa; }
-
-    .install button {
-      flex-shrink: 0;
-      border: 1px solid #414354;
-      background: #252735;
-      color: white;
-      padding: 7px 11px;
-      border-radius: 7px;
-      font-size: 11px;
-      cursor: pointer;
-    }
-
-    .install button:hover { background: #36394b; }
-
-    /* Metrics */
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      max-width: 760px;
-      margin: 58px auto 0;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: white;
-    }
-
-    .metric {
-      padding: 21px 14px;
-      text-align: center;
-      border-right: 1px solid var(--border);
-    }
-
-    .metric:last-child { border: 0; }
-
-    .metric strong {
-      display: block;
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .metric span {
-      display: block;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
       color: var(--muted);
+      font-family: var(--mono);
       font-size: 11px;
-      margin-top: 3px;
     }
 
-    /* General sections */
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-meta span::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #8586e9;
+    }
 
     .section {
-      padding: 90px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 88px 0;
+      border-top: 1px solid var(--line);
     }
 
-    .section-header {
-      max-width: 660px;
-      margin-bottom: 35px;
+    .section-heading {
+      max-width: 650px;
+      margin-bottom: 36px;
     }
 
-    .section-kicker {
+    .section-label {
       color: var(--accent);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      font-weight: 800;
-      margin-bottom: 10px;
     }
 
-    .section-title {
-      font-size: clamp(28px, 4vw, 39px);
-      line-height: 1.2;
-      letter-spacing: -1.8px;
-      font-weight: 800;
+    h2 {
+      margin: 13px 0 12px;
+      font-size: clamp(30px, 5vw, 43px);
+      line-height: 1.12;
+      letter-spacing: -2px;
     }
 
     .section-description {
       color: var(--muted);
-      margin-top: 12px;
       font-size: 14px;
-      max-width: 590px;
-    }
-
-    /* Feature explorer */
-
-    .explorer-tools {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
-    .search {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      border: 1px solid var(--border);
-      background: white;
-      border-radius: 9px;
-      padding: 0 13px;
-      height: 41px;
-      width: min(100%, 310px);
-    }
-
-    .search span { color: var(--subtle); }
-
-    .search input {
-      border: 0;
-      outline: none;
-      background: transparent;
-      width: 100%;
-      color: var(--text);
-      font-size: 12px;
-    }
-
-    .search:focus-within { border-color: var(--accent); }
-
-    .filters {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .filter {
-      border: 1px solid var(--border);
-      background: white;
-      color: var(--muted);
-      padding: 7px 11px;
-      border-radius: 7px;
-      font-size: 11px;
-      cursor: pointer;
-      transition: .2s;
-    }
-
-    .filter:hover,
-    .filter.active {
-      color: var(--accent);
-      border-color: #d4ceff;
-      background: var(--accent-soft);
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 13px;
-    }
-
-    .feature-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: white;
-      padding: 21px;
-      transition: .2s;
-      min-width: 0;
-    }
-
-    .feature-card:hover {
-      border-color: #cfc9f6;
-      box-shadow: var(--shadow);
-      transform: translateY(-2px);
-    }
-
-    .feature-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .feature-icon {
-      display: grid;
-      place-items: center;
-      width: 39px;
-      height: 39px;
-      background: var(--soft);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 19px;
-    }
-
-    .feature-category {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .8px;
-      color: var(--subtle);
-      font-weight: 700;
-    }
-
-    .feature-card h3 {
-      font-size: 14px;
-      letter-spacing: -.3px;
-      margin-bottom: 6px;
-    }
-
-    .feature-card p {
-      font-size: 12px;
-      line-height: 1.75;
-      color: var(--muted);
-      min-height: 43px;
-    }
-
-    .feature-actions {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 17px;
-    }
-
-    .feature-actions .button { min-height: 30px; }
-
-    .empty {
-      display: none;
-      padding: 40px;
-      text-align: center;
-      color: var(--muted);
-      border: 1px dashed var(--border-strong);
-      border-radius: var(--radius);
-    }
-
-    /* Playground */
-
-    .playground {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      background: white;
-    }
-
-    .playground-head {
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      gap: 12px;
-    }
-
-    .playground-head strong { font-size: 13px; }
-
-    .playground-head span {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .playground-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .demo-panel {
-      padding: 26px;
-      border-right: 1px solid var(--border);
-    }
-
-    .panel-label {
-      color: var(--subtle);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 10px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .demo-box {
-      height: 210px;
-      border: 1px dashed #d5d3e9;
-      border-radius: 12px;
-      background: #faf9ff;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: .2s;
-      user-select: none;
-      overflow: hidden;
-    }
-
-    .demo-box:hover { border-color: var(--accent); }
-
-    .demo-box small {
-      display: block;
-      font-size: 11px;
-      color: var(--muted);
-      font-weight: 400;
-      margin-top: 7px;
-    }
-
-    .demo-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 14px;
-    }
-
-    .console-panel {
-      padding: 26px;
-      background: #171923;
-      min-width: 0;
-    }
-
-    .console-panel .panel-label { color: #9296a8; }
-
-    .console {
-      height: 210px;
-      overflow: auto;
-      font: 11px/1.9 var(--mono);
-      color: #a4dbbf;
-      overflow-wrap: anywhere;
-    }
-
-    .console-line { border-bottom: 1px solid #292b36; }
-    .console-line.info { color: #91bafa; }
-    .console-line.warn { color: #f5ca82; }
-    .console-line.error { color: #f28a8a; }
-    .console-line.dim { color: #777e90; }
-
-    /* Compatibility */
-
-    .notice {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      background: #faf9ff;
-      border: 1px solid #e7e3ff;
-      padding: 17px;
-      border-radius: 11px;
-      margin-top: 24px;
-    }
-
-    .notice-icon { font-size: 17px; }
-
-    .notice strong {
-      font-size: 12px;
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .notice p {
-      color: var(--muted);
-      font-size: 11px;
       line-height: 1.8;
     }
 
-    /* Documentation */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+    }
 
-    .docs-grid {
+    .panel {
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .about-copy {
+      color: #646b76;
+      font-size: 14px;
+      line-height: 1.95;
+    }
+
+    .about-copy strong {
+      color: var(--text);
+    }
+
+    .about-aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .aside-title {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .aside-value {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .about-mark {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--accent-soft);
+    }
+
+    .about-mark img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .step {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--surface);
+    }
+
+    .step-number {
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .step h3 {
+      margin: 18px 0 8px;
+      font-size: 15px;
+      letter-spacing: -.3px;
+    }
+
+    .step p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .code-block {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #e6e8ed;
+      border-radius: 13px;
+      background: #f7f8fa;
+    }
+
+    .code-top {
+      min-height: 40px;
+      padding: 0 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e6e8ed;
+      color: #777e89;
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .copy-button {
+      padding: 5px 9px;
+      border: 1px solid #e1e3e9;
+      border-radius: 7px;
+      background: white;
+      color: #555d68;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .copy-button:hover {
+      border-color: #bfc0ec;
+      color: var(--accent);
+    }
+
+    pre {
+      margin: 0;
+      padding: 17px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.8;
+      tab-size: 2;
+    }
+
+    pre code {
+      font-family: inherit;
+    }
+
+    .inline-note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border: 1px solid #e8e6fb;
+      border-radius: 11px;
+      background: #f7f6ff;
+      color: #6562a0;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .credits-intro {
+      max-width: 600px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .credits-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 13px;
     }
 
-    .docs-card {
-      border: 1px solid var(--border);
-      padding: 23px;
-      border-radius: var(--radius);
-      transition: .2s;
+    .credit-card {
+      min-height: 112px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+      transition: transform .2s, border-color .2s, box-shadow .2s;
     }
 
-    .docs-card:hover {
-      border-color: #cfc9f6;
-      background: #fcfbff;
+    .credit-card:hover {
+      transform: translateY(-3px);
+      border-color: #d5d5ee;
+      box-shadow: var(--shadow);
     }
 
-    .docs-card .icon {
-      font-size: 21px;
-      margin-bottom: 14px;
-    }
-
-    .docs-card h3 {
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
-
-    .docs-card p {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 17px;
-    }
-
-    .docs-card a {
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    /* Footer */
-
-    footer {
-      padding: 48px 0 25px;
+    .credit-icon {
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #eceef1;
+      border-radius: 12px;
       background: #fafbfc;
     }
 
-    .footer-main {
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-      flex-wrap: wrap;
-      padding-bottom: 35px;
+    .credit-icon img {
+      width: 27px;
+      height: 27px;
+      object-fit: contain;
     }
 
-    .footer-brand { max-width: 300px; }
-
-    .footer-brand p {
-      color: var(--muted);
+    .credit-name {
       font-size: 12px;
-      margin-top: 12px;
+      font-weight: 700;
+    }
+
+    .credit-role {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .credit-card.founder {
+      grid-column: span 3;
+      min-height: 90px;
+      background: #fff;
+    }
+
+    .founder-avatar {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--text);
+      color: white;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .dependencies {
+      margin-top: 30px;
+    }
+
+    .dependencies-heading {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dependencies-heading h3 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: -.4px;
+    }
+
+    .dependencies-heading span {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
     }
 
     .footer-links {
       display: flex;
-      gap: 65px;
       flex-wrap: wrap;
+      gap: 18px;
     }
 
-    .footer-column strong {
-      display: block;
+    .footer-links a {
+      color: #646b76;
       font-size: 11px;
-      margin-bottom: 13px;
+      font-weight: 600;
     }
 
-    .footer-column a {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 9px;
+    .footer-links a:hover {
+      color: var(--accent);
     }
-
-    .footer-column a:hover { color: var(--accent); }
-
-    .footer-bottom {
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-      color: var(--subtle);
-      font-size: 10px;
-    }
-
-    /* Toast */
 
     .toast {
       position: fixed;
+      z-index: 100;
+      right: 22px;
       bottom: 22px;
-      left: 50%;
-      transform: translate(-50%, 15px);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 9999;
-      background: #191b25;
+      padding: 12px 17px;
+      border: 1px solid #343640;
+      border-radius: 11px;
+      background: #202127;
       color: white;
-      padding: 11px 17px;
-      border-radius: 9px;
       font-size: 12px;
-      box-shadow: 0 10px 30px #0002;
-      transition: .25s;
+      box-shadow: 0 10px 35px rgba(0,0,0,.15);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: .25s ease;
     }
 
     .toast.show {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translateY(0);
     }
 
-    /* Mobile */
-
-    @media(max-width: 900px) {
-      .nav-links { gap: 14px; }
-      .nav-links a { font-size: 11px; }
-      .feature-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media(max-width: 700px) {
-      .container { width: calc(100% - 36px); }
-
-      .nav-inner { height: 62px; }
-
-      .nav-links, .nav-actions { display: none; }
+    @media (max-width: 760px) {
+      .nav {
+        height: 68px;
+      }
 
       .menu-toggle {
         display: block;
       }
 
-      .nav-links.mobile-open {
+      .nav-links {
         position: absolute;
-        display: flex;
-        top: 61px;
+        top: 68px;
         left: 0;
         right: 0;
-        background: white;
-        border-bottom: 1px solid var(--border);
-        padding: 18px;
+        padding: 18px 22px 22px;
+        display: none;
         flex-direction: column;
         align-items: stretch;
         gap: 0;
+        border-bottom: 1px solid var(--line);
+        background: var(--bg);
       }
 
-      .nav-links.mobile-open a {
-        display: block;
-        padding: 12px 8px;
-        font-size: 13px;
+      .nav-links.open {
+        display: flex;
       }
 
-      .hero { padding: 78px 0 55px; }
-
-      .hero h1 {
-        letter-spacing: -2.5px;
-        font-size: clamp(39px, 10vw, 58px);
+      .nav-links a {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
       }
 
-      .hero-description { font-size: 13px; }
-
-      .metrics { grid-template-columns: repeat(2, 1fr); }
-
-      .metric:nth-child(2) { border-right: 0; }
-      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
-
-      .section { padding: 65px 0; }
-
-      .feature-grid, .docs-grid { grid-template-columns: 1fr; }
-
-      .playground-content { grid-template-columns: 1fr; }
-
-      .demo-panel {
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
+      .nav-actions .button {
+        display: none;
       }
 
-      .footer-links { gap: 35px; }
+      .hero {
+        padding: 85px 0 75px;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+
+      .about-grid,
+      .how-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .credits-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .credit-card.founder {
+        grid-column: span 2;
+      }
+
+      .section {
+        padding: 70px 0;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
 
-    @media(max-width: 400px) {
-      .hero-actions .button { width: 100%; }
-      .install { gap: 7px; padding-left: 10px; }
-      .install code { font-size: 10px; }
-      .explorer-tools { align-items: stretch; }
-      .search { width: 100%; }
+    @media (max-width: 440px) {
+      .container {
+        width: min(100% - 30px, 1100px);
+      }
+
+      .hero-meta {
+        gap: 13px;
+      }
+
+      .credits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .credit-card.founder {
+        grid-column: auto;
+      }
+
+      .panel {
+        padding: 22px;
+      }
     }
 
-    @media(prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
         scroll-behavior: auto !important;
         animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
       }
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(91, 92, 226, .35);
+      outline-offset: 3px;
     }
   </style>
 </head>
 
 <body>
-
-  <!-- Navigation -->
-
-  <nav class="nav">
-    <div class="container nav-inner">
-
-      <a href="#" class="brand">
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#">
         <img src="./trigo.png" alt="Trigo.js logo">
-        <span>Trigo.js</span>
-        <small>v<span id="version">—</span></small>
+        <span>Trigo.js <small> / Command the Web</small></span>
       </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="#features">Features</a>
-        <a href="#playground">Playground</a>
-        <a href="#documentation">Documentation</a>
-        <a href="https://github.com/spideythedev/Trigo"
-           target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-      </div>
+      <nav class="nav-links" id="navigation" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#how-to-use">How to use</a>
+        <a href="#credits">Credits</a>
+      </nav>
 
       <div class="nav-actions">
-        <a class="button" href="https://learntrigo.vercel.app"
-           target="_blank" rel="noopener noreferrer">Learn</a>
-        <a class="button primary" href="#install">Get started ↗</a>
+        <a class="button" href="https://learntrigo.vercel.app" target="_blank" rel="noopener">Documentation ↗</a>
+        <a class="button primary" href="https://github.com/spideythedev/Trigo" target="_blank" rel="noopener">GitHub ↗</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navigation">☰</button>
       </div>
-
-      <button class="menu-toggle" id="menuToggle"
-              aria-label="Toggle navigation"
-              aria-expanded="false">☰</button>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-
-  <header class="hero">
-    <div class="container hero-content">
-
-      <div class="eyebrow">
-        <span class="status-dot" id="statusDot"></span>
-        <span id="libraryStatus">INITIALIZING LIBRARY</span>
-      </div>
-
-      <h1>The web,<br><span>within reach.</span></h1>
-
-      <p class="hero-description">
-        A powerful JavaScript library for interactive web experiences.
-        Access device capabilities, browser APIs, visual effects,
-        animations, and more through one customizable interface.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#install" class="button primary">Get started ↗</a>
-        <a href="#features" class="button">Explore capabilities</a>
-        <a href="https://github.com/spideythedev/Trigo"
-           target="_blank" rel="noopener noreferrer" class="button">
-          GitHub ↗
-        </a>
-      </div>
-
-      <div class="install" id="install">
-        <code><span>$</span> npm install trigo.js</code>
-        <button class="copy" data-copy="npm install trigo.js">Copy</button>
-      </div>
-
-      <div class="metrics">
-        <div class="metric">
-          <strong>483+</strong>
-          <span>Triggers</span>
-        </div>
-        <div class="metric">
-          <strong>0</strong>
-          <span>Dependencies</span>
-        </div>
-        <div class="metric">
-          <strong>~45KB</strong>
-          <span>Minified + Gzip*</span>
-        </div>
-        <div class="metric">
-          <strong id="device">Detecting</strong>
-          <span>Your device</span>
-        </div>
-      </div>
-
-      <p style="font-size:10px;color:var(--subtle);margin-top:10px">
-        * Bundle-size figure from the existing project website.
-      </p>
-
     </div>
   </header>
 
-  <!-- Features -->
-
   <main>
-
-    <section class="section" id="features">
+    <section class="hero">
       <div class="container">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> JAVASCRIPT LIBRARY</div>
+        <h1>Command<br>the <span>Web.</span></h1>
+        <p class="hero-description">
+          Trigo.js brings powerful browser interactions into one JavaScript library.
+          Build experiences that respond, react, and interact with the web.
+        </p>
 
-        <div class="section-header">
-          <div class="section-kicker">Explore the library</div>
-          <h2 class="section-title">One library. Many possibilities.</h2>
+        <div class="hero-actions">
+          <a class="button primary" href="#how-to-use">Get started ↗</a>
+          <a class="button" href="https://github.com/spideythedev/Trigo" target="_blank" rel="noopener">Explore on GitHub</a>
+        </div>
+
+        <div class="hero-meta">
+          <span>483+ triggers</span>
+          <span>Mobile & desktop</span>
+          <span>Zero dependencies</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">01 / About</div>
+          <h2>A little more about Trigo.</h2>
           <p class="section-description">
-            Discover the capabilities available through Trigo.js.
-            Explore categories and interact with supported demonstrations.
+            A JavaScript library built to make browser interactions easier to work with.
           </p>
         </div>
 
-        <div class="explorer-tools">
-
-          <label class="search">
-            <span>⌕</span>
-            <input type="search" id="featureSearch"
-                   placeholder="Search capabilities..."
-                   aria-label="Search capabilities">
-          </label>
-
-          <div class="filters">
-            <button class="filter active" data-filter="all">All</button>
-            <button class="filter" data-filter="device">Device</button>
-            <button class="filter" data-filter="visual">Visual</button>
-            <button class="filter" data-filter="canvas">Canvas</button>
-            <button class="filter" data-filter="audio">Audio</button>
-          </div>
-
-        </div>
-
-        <div class="feature-grid" id="featureGrid">
-
-          <!-- Device -->
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">📳</div>
-              <span class="feature-category">Device API</span>
-            </div>
-            <h3>Vibration & Haptics</h3>
-            <p>Vibration patterns, SOS signals, heartbeat rhythms and haptic feedback.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="vibrate">Vibrate</button>
-              <button class="button small" data-action="sos">SOS</button>
-              <button class="button small" data-action="heartbeat">Heartbeat</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">🔦</div>
-              <span class="feature-category">Hardware</span>
-            </div>
-            <h3>Flashlight</h3>
-            <p>Control flashlight effects including toggle, blink and SOS.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="flashlight">Toggle</button>
-              <button class="button small" data-action="flashblink">Blink</button>
-              <button class="button small" data-action="flashsos">SOS</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">📸</div>
-              <span class="feature-category">Media</span>
-            </div>
-            <h3>Camera & Microphone</h3>
-            <p>Open camera streams and record microphone audio.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="camera">Open camera</button>
-              <button class="button small" data-action="mic">Record 3s</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">📍</div>
-              <span class="feature-category">Location</span>
-            </div>
-            <h3>Geolocation</h3>
-            <p>Access device position and location-based information.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="location">Get location</button>
-              <button class="button small" data-action="speed">Get speed</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">📋</div>
-              <span class="feature-category">Browser API</span>
-            </div>
-            <h3>Clipboard & Sharing</h3>
-            <p>Copy content and access native sharing capabilities.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="clipboard">Copy text</button>
-              <button class="button small" data-action="share">Share</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">🔔</div>
-              <span class="feature-category">Browser API</span>
-            </div>
-            <h3>Notifications</h3>
-            <p>Display notifications and schedule notification examples.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="notify">Notify</button>
-              <button class="button small" data-action="schedule">Schedule</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">🖥️</div>
-              <span class="feature-category">Display</span>
-            </div>
-            <h3>Fullscreen & Wake Lock</h3>
-            <p>Manage fullscreen mode and screen wake behavior.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="fullscreen">Fullscreen</button>
-              <button class="button small" data-action="exitfullscreen">Exit</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="device">
-            <div class="feature-top">
-              <div class="feature-icon">📡</div>
-              <span class="feature-category">Connectivity</span>
-            </div>
-            <h3>NFC & Bluetooth</h3>
-            <p>Explore supported NFC and Bluetooth browser capabilities.</p>
-            <div class="feature-actions">
-              <button class="button small" data-action="nfcinfo">NFC support</button>
-              <button class="button small" data-action="btinfo">Bluetooth support</button>
-            </div>
-          </article>
-
-          <!-- Visual -->
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">🌫️</div>
-              <span class="feature-category">Animation</span>
-            </div>
-            <h3>Fade & Blink</h3>
-            <p>Animate element visibility with configurable effects.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="fadein">Fade in</button>
-              <button class="button small" data-action="fadeout">Fade out</button>
-              <button class="button small" data-action="blink">Blink</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">💫</div>
-              <span class="feature-category">Animation</span>
-            </div>
-            <h3>Pulse & Glow</h3>
-            <p>Scale and illuminate elements with animated effects.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="pulse">Pulse</button>
-              <button class="button small" data-action="glow">Glow</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">🪨</div>
-              <span class="feature-category">Animation</span>
-            </div>
-            <h3>Shake & Bounce</h3>
-            <p>Introduce motion with configurable shake and bounce effects.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="shake">Shake</button>
-              <button class="button small" data-action="bounce">Bounce</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">📐</div>
-              <span class="feature-category">Animation</span>
-            </div>
-            <h3>Slide & Zoom</h3>
-            <p>Animate directional transitions and scaling effects.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="slide">Slide in</button>
-              <button class="button small" data-action="zoom">Zoom in</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">🔄</div>
-              <span class="feature-category">Animation</span>
-            </div>
-            <h3>Spin & Reveal</h3>
-            <p>Rotate elements and create scroll-triggered reveal animations.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="spin">Spin</button>
-              <button class="button small" data-action="reveal">Reveal</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">🌈</div>
-              <span class="feature-category">Advanced effects</span>
-            </div>
-            <h3>Holographic & 3D</h3>
-            <p>Interactive tilt, glare and 3D visual transformations.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="holographic">Activate</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">⌨️</div>
-              <span class="feature-category">Typography</span>
-            </div>
-            <h3>Typewriter & Scramble</h3>
-            <p>Animate text with typewriter and scrambling effects.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="typewriter">Type</button>
-              <button class="button small" data-action="scramble">Scramble</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="visual">
-            <div class="feature-top">
-              <div class="feature-icon">🎨</div>
-              <span class="feature-category">Visual effects</span>
-            </div>
-            <h3>Gradient & Parallax</h3>
-            <p>Animate gradients and create scroll-based movement.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="gradient">Gradient</button>
-              <button class="button small" data-action="parallax">Parallax</button>
-            </div>
-          </article>
-
-          <!-- Canvas -->
-
-          <article class="feature-card" data-category="canvas">
-            <div class="feature-top">
-              <div class="feature-icon">🎉</div>
-              <span class="feature-category">Canvas</span>
-            </div>
-            <h3>Confetti</h3>
-            <p>Generate particle bursts with configurable spread and count.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="confetti">Launch</button>
-              <button class="button small" data-action="confettix3">Triple burst</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="canvas">
-            <div class="feature-top">
-              <div class="feature-icon">✨</div>
-              <span class="feature-category">Canvas</span>
-            </div>
-            <h3>Particles</h3>
-            <p>Create interactive particle networks and visual connections.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="particles">Start</button>
-              <button class="button small" data-action="stopparticles">Stop</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="canvas">
-            <div class="feature-top">
-              <div class="feature-icon">❄️</div>
-              <span class="feature-category">Canvas</span>
-            </div>
-            <h3>Snow</h3>
-            <p>Create configurable snowfall particle effects.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="snow">Start snow</button>
-              <button class="button small" data-action="stopsnow">Stop</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="canvas">
-            <div class="feature-top">
-              <div class="feature-icon">🔥</div>
-              <span class="feature-category">Canvas</span>
-            </div>
-            <h3>Fire</h3>
-            <p>Procedural fire effects with customizable intensity.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="fire">Ignite</button>
-              <button class="button small" data-action="stopfire">Extinguish</button>
-            </div>
-          </article>
-
-          <!-- Audio -->
-
-          <article class="feature-card" data-category="audio">
-            <div class="feature-top">
-              <div class="feature-icon">🗣️</div>
-              <span class="feature-category">Audio</span>
-            </div>
-            <h3>Speech Synthesis</h3>
-            <p>Generate speech with configurable voice, rate and pitch.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="speak">Speak</button>
-              <button class="button small" data-action="stopspeak">Stop</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="audio">
-            <div class="feature-top">
-              <div class="feature-icon">🎙️</div>
-              <span class="feature-category">Audio</span>
-            </div>
-            <h3>Speech Recognition</h3>
-            <p>Convert spoken input into text through supported browser APIs.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="listen">Listen</button>
-              <button class="button small" data-action="stoplisten">Stop</button>
-            </div>
-          </article>
-
-          <article class="feature-card" data-category="audio">
-            <div class="feature-top">
-              <div class="feature-icon">🔊</div>
-              <span class="feature-category">Audio</span>
-            </div>
-            <h3>Beep Generator</h3>
-            <p>Generate tones with configurable frequency and duration.</p>
-            <div class="feature-actions">
-              <button class="button small primary" data-action="beep">Play beep</button>
-              <button class="button small" data-action="melody">Melody</button>
-            </div>
-          </article>
-
-        </div>
-
-        <div class="empty" id="emptyState">
-          No capabilities match your search.
-        </div>
-
-        <div class="notice">
-          <span class="notice-icon">ⓘ</span>
-          <div>
-            <strong>Browser and hardware compatibility</strong>
-            <p>
-              Device APIs have different support requirements.
-              Camera, microphone, geolocation, NFC, Bluetooth and notifications
-              may require secure contexts, permissions or compatible hardware.
-              Some features are unavailable in certain browsers.
+        <div class="about-grid">
+          <article class="panel">
+            <p class="about-copy">
+              <strong>Trigo.js</strong> is a web interaction library designed to give developers
+              a straightforward way to work with browser capabilities and visual effects.
+              Instead of repeatedly building common interaction logic, developers can use
+              Trigo.js as a single toolkit.
             </p>
-          </div>
-        </div>
+            <p class="about-copy">
+              From device APIs and visual effects to canvas experiences and audio interactions,
+              Trigo.js aims to make the browser a more expressive place to build.
+            </p>
+            <p class="about-copy">
+              The project is built with a focus on accessibility, simplicity, and practical
+              developer experience.
+            </p>
+          </article>
 
-      </div>
-    </section>
-
-    <!-- Playground -->
-
-    <section class="section" id="playground">
-      <div class="container">
-
-        <div class="section-header">
-          <div class="section-kicker">Interactive environment</div>
-          <h2 class="section-title">See it in action.</h2>
-          <p class="section-description">
-            Experiment with a real Trigo.js instance.
-            Trigger animations and inspect execution feedback.
-          </p>
-        </div>
-
-        <div class="playground">
-
-          <div class="playground-head">
+          <aside class="panel about-aside">
             <div>
-              <strong>Trigo Playground</strong>
-              <span style="margin-left:9px">Interactive demo</span>
-            </div>
-            <span id="playgroundStatus">Waiting for library</span>
-          </div>
-
-          <div class="playground-content">
-
-            <div class="demo-panel">
-              <div class="panel-label">Preview environment</div>
-
-              <div class="demo-box" id="demoBox" role="button" tabindex="0">
-                <div>
-                  <div style="font-size:27px">✦</div>
-                  <div>Click to interact</div>
-                  <small>Powered by Trigo.js</small>
-                </div>
+              <div class="about-mark">
+                <img src="./trigo.png" alt="">
               </div>
-
-              <div class="demo-controls">
-                <button class="button small primary" data-action="democonfetti">Confetti</button>
-                <button class="button small" data-action="demopulse">Pulse</button>
-                <button class="button small" data-action="demoshake">Shake</button>
-                <button class="button small" data-action="demoreset">Reset</button>
-              </div>
+              <h3 class="aside-title" style="margin-top:20px">Command the Web</h3>
+              <p class="aside-value">
+                One library. A collection of browser interactions.
+                Built for developers who want to do more with JavaScript.
+              </p>
             </div>
 
-            <div class="console-panel">
-              <div class="panel-label">
-                Execution console
-                <button id="clearConsole"
-                        style="float:right;background:none;border:0;color:#a3a7b5;cursor:pointer;font-size:10px">
-                  Clear
-                </button>
-              </div>
-
-              <div class="console" id="consoleArea" aria-live="polite">
-                <div class="console-line dim">
-                  [Trigo.js] Console initialized.
-                </div>
-                <div class="console-line dim">
-                  Waiting for library initialization...
-                </div>
-              </div>
+            <div>
+              <div class="aside-title">Project links</div>
+              <p class="aside-value">
+                <a href="https://github.com/spideythedev/Trigo" target="_blank" rel="noopener">GitHub repository ↗</a><br>
+                <a href="https://learntrigo.vercel.app" target="_blank" rel="noopener">Learning resources ↗</a>
+              </p>
             </div>
-
-          </div>
+          </aside>
         </div>
-
       </div>
     </section>
 
-    <!-- Documentation -->
-
-    <section class="section" id="documentation">
+    <section class="section" id="how-to-use">
       <div class="container">
-
-        <div class="section-header">
-          <div class="section-kicker">Developer resources</div>
-          <h2 class="section-title">Build with confidence.</h2>
+        <div class="section-heading">
+          <div class="section-label">02 / Getting started</div>
+          <h2>How to use Trigo.js.</h2>
           <p class="section-description">
-            Everything you need to explore Trigo.js and start building
-            interactive web experiences.
+            Get the package, include the library in your project, and start using its API.
           </p>
         </div>
 
-        <div class="docs-grid">
+        <div class="how-grid">
+          <article class="step">
+            <div class="step-number">01</div>
+            <h3>Install with npm</h3>
+            <p>Install the package in your project using your terminal.</p>
 
-          <article class="docs-card">
-            <div class="icon">📖</div>
-            <h3>Learn Trigo.js</h3>
-            <p>Explore tutorials, guides and learning resources.</p>
-            <a href="https://learntrigo.vercel.app"
-               target="_blank" rel="noopener noreferrer">
-              Open learning platform ↗
-            </a>
+            <div class="code-block">
+              <div class="code-top">
+                <span>TERMINAL</span>
+                <button class="copy-button" data-copy="npm install trigo.js">Copy</button>
+              </div>
+              <pre><code class="language-bash">npm install trigo.js</code></pre>
+            </div>
           </article>
 
-          <article class="docs-card">
-            <div class="icon">⌘</div>
-            <h3>Source code</h3>
-            <p>Explore the implementation, releases and repository.</p>
-            <a href="https://github.com/spideythedev/Trigo"
-               target="_blank" rel="noopener noreferrer">
-              Explore GitHub ↗
-            </a>
+          <article class="step">
+            <div class="step-number">02</div>
+            <h3>Use the CDN</h3>
+            <p>Alternatively, include the hosted script directly in your HTML.</p>
+
+            <div class="code-block">
+              <div class="code-top">
+                <span>HTML</span>
+                <button class="copy-button" data-copy='<script src="https://cdn.jsdelivr.net/gh/spideythedev/Trigo@main/trigo.min.js"></script>'>Copy</button>
+              </div>
+              <pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/gh/spideythedev/Trigo@main/trigo.min.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
           </article>
 
-          <article class="docs-card">
-            <div class="icon">📦</div>
-            <h3>Installation</h3>
-            <p>Install the package using your preferred package manager.</p>
-            <button class="button small" data-copy="npm install trigo.js">
-              Copy npm command
-            </button>
+          <article class="step">
+            <div class="step-number">03</div>
+            <h3>Work with the API</h3>
+            <p>Use your Trigo instance to access the library's available methods.</p>
+
+            <div class="code-block">
+              <div class="code-top">
+                <span>JAVASCRIPT</span>
+                <button class="copy-button" data-copy="t.vibrate(200);\nt.vibrate.heartbeat();\nt.vibrate.sos();">Copy</button>
+              </div>
+              <pre><code class="language-javascript">// Vibration
+t.vibrate(200);
+
+// Special vibration patterns
+t.vibrate.heartbeat();
+t.vibrate.sos();</code></pre>
+            </div>
           </article>
 
+          <article class="step">
+            <div class="step-number">04</div>
+            <h3>Explore more methods</h3>
+            <p>Here are a few examples of the available interaction APIs.</p>
+
+            <div class="code-block">
+              <div class="code-top">
+                <span>JAVASCRIPT</span>
+                <button class="copy-button" data-copy="t.confetti();\nt.speak('Hello from Trigo!');\nt.fullscreen.enter();">Copy</button>
+              </div>
+              <pre><code class="language-javascript">// Canvas effect
+t.confetti();
+
+// Text-to-speech
+t.speak("Hello from Trigo!");
+
+// Fullscreen
+t.fullscreen.enter();</code></pre>
+            </div>
+          </article>
         </div>
 
+        <div class="inline-note">
+          <strong>Note:</strong> Browser APIs such as camera, microphone, location, notifications,
+          and fullscreen may require HTTPS, user permission, or a direct user interaction.
+          Availability also depends on the browser and device.
+        </div>
+
+        <div style="margin-top:28px">
+          <a class="button primary" href="https://learntrigo.vercel.app" target="_blank" rel="noopener">
+            Read the documentation ↗
+          </a>
+        </div>
       </div>
     </section>
 
+    <section class="section" id="credits">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">03 / Credits</div>
+          <h2>Built with the right tools.</h2>
+          <p class="section-description">
+            Trigo.js is made possible by the people, technologies, and tools behind the project.
+          </p>
+        </div>
+
+        <p class="credits-intro">
+          A little appreciation for everything that helped bring Trigo.js to life.
+        </p>
+
+        <div class="credits-grid">
+          <article class="credit-card founder">
+            <div class="founder-avatar">F</div>
+            <div>
+              <div class="credit-name">Fahad Malik</div>
+              <div class="credit-role">Creator & developer · Built Trigo.js</div>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <div class="credit-icon">
+              <img src="https://img.icons8.com/?size=100&id=108784&format=png&color=000000" alt="JavaScript">
+            </div>
+            <div>
+              <div class="credit-name">JavaScript</div>
+              <div class="credit-role">Core language & engine</div>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <div class="credit-icon">
+              <img src="https://img.icons8.com/?size=100&id=2xFS7aynbwiR&format=png&color=000000" alt="Vercel">
+            </div>
+            <div>
+              <div class="credit-name">Vercel</div>
+              <div class="credit-role">Website hosting</div>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <div class="credit-icon">
+              <img src="https://img.icons8.com/?size=100&id=62856&format=png&color=000000" alt="GitHub">
+            </div>
+            <div>
+              <div class="credit-name">GitHub</div>
+              <div class="credit-role">Code publishing & repository</div>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <div class="credit-icon">
+              <img src="https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=000000" alt="Visual Studio Code">
+            </div>
+            <div>
+              <div class="credit-name">VS Code</div>
+              <div class="credit-role">Development environment</div>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <div class="credit-icon">
+              <img src="https://img.icons8.com/?size=100&id=20909&format=png&color=000000" alt="HTML">
+            </div>
+            <div>
+              <div class="credit-name">HTML</div>
+              <div class="credit-role">Website structure</div>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <div class="credit-icon">
+              <img src="https://img.icons8.com/?size=100&id=21278&format=png&color=000000" alt="CSS">
+            </div>
+            <div>
+              <div class="credit-name">CSS</div>
+              <div class="credit-role">Website styling & layout</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="dependencies">
+          <div class="dependencies-heading">
+            <h3>Development dependencies</h3>
+            <span>PACKAGE.JSON</span>
+          </div>
+
+          <div class="code-block">
+            <div class="code-top">
+              <span>JSON · DEVDEPENDENCIES</span>
+              <button class="copy-button" data-copy='{
+  "@babel/core": "^7.24.0",
+  "@babel/preset-env": "^7.24.0",
+  "@rollup/plugin-babel": "^6.0.4",
+  "@rollup/plugin-node-resolve": "^15.2.3",
+  "@rollup/plugin-terser": "^0.4.4",
+  "rollup": "^4.12.0"
+}'>Copy</button>
+            </div>
+            <pre><code class="language-json">{
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.12.0"
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <p class="credits-intro" style="margin-top:24px;margin-bottom:0">
+          Technology and product names belong to their respective owners.
+          Icons are provided by Icons8.
+        </p>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer -->
-
-  <footer>
-    <div class="container">
-
-      <div class="footer-main">
-
-        <div class="footer-brand">
-          <a href="#" class="brand">
-            <img src="./trigo.png" alt="">
-            Trigo.js
-          </a>
-          <p>
-            A JavaScript library for interactive web experiences,
-            device capabilities and creative possibilities.
-          </p>
-        </div>
-
-        <div class="footer-links">
-
-          <div class="footer-column">
-            <strong>Explore</strong>
-            <a href="#features">Features</a>
-            <a href="#playground">Playground</a>
-            <a href="#documentation">Resources</a>
-          </div>
-
-          <div class="footer-column">
-            <strong>Resources</strong>
-            <a href="https://learntrigo.vercel.app"
-               target="_blank" rel="noopener noreferrer">Learn Trigo.js ↗</a>
-            <a href="https://github.com/spideythedev/Trigo"
-               target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          </div>
-
-          <div class="footer-column">
-            <strong>Project</strong>
-            <a href="https://github.com/spideythedev/Trigo"
-               target="_blank" rel="noopener noreferrer">Source code</a>
-            <a href="https://github.com/spideythedev/Trigo/blob/main/LICENSE"
-               target="_blank" rel="noopener noreferrer">MIT License</a>
-          </div>
-
-        </div>
-
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        <strong style="color:var(--text)">Trigo.js</strong> — Command the Web.<br>
+        Built by Fahad Malik.
       </div>
 
-      <div class="footer-bottom">
-        <span>© <span id="year"></span> Trigo.js. Open-source software.</span>
-        <span>Built for the web, by developers.</span>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#how-to-use">How to use</a>
+        <a href="#credits">Credits</a>
+        <a href="https://learntrigo.vercel.app" target="_blank" rel="noopener">Docs ↗</a>
+        <a href="https://github.com/spideythedev/Trigo" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
-
     </div>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Trigo.js -->
-
-  <script src="https://cdn.jsdelivr.net/gh/spideythedev/Trigo@main/trigo.min.js"></script>
+  <!-- Highlight.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
 
   <script>
-    (() => {
-      "use strict";
+    const menuToggle = document.getElementById("menuToggle");
+    const navigation = document.getElementById("navigation");
+    const toast = document.getElementById("toast");
 
-      const $ = (selector, parent = document) =>
-        parent.querySelector(selector);
+    let toastTimeout;
 
-      const $$ = (selector, parent = document) =>
-        [...parent.querySelectorAll(selector)];
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
 
-      let t = null;
-      let toastTimer = null;
-      let cameraVideo = null;
-      let cameraTimer = null;
-      let cameraStreamOpen = false;
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
 
-      const consoleArea = $("#consoleArea");
-      const demoBox = $("#demoBox");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navigation.classList.toggle("open");
 
-      // Notifications
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
 
-      function toast(message) {
-        const element = $("#toast");
-        element.textContent = message;
-        element.classList.add("show");
+    navigation.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navigation.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
 
-        clearTimeout(toastTimer);
-
-        toastTimer = setTimeout(() => {
-          element.classList.remove("show");
-        }, 2300);
-      }
-
-      // Console
-
-      function log(message, type = "") {
-        const line = document.createElement("div");
-
-        line.className = "console-line " + type;
-        line.textContent =
-          "[" + new Date().toLocaleTimeString() + "] " + message;
-
-        consoleArea.appendChild(line);
-
-        while (consoleArea.children.length > 100) {
-          consoleArea.firstElementChild.remove();
-        }
-
-        consoleArea.scrollTop = consoleArea.scrollHeight;
-      }
-
-      function requireTrigo() {
-        if (!t) {
-          log("Trigo.js is not initialized.", "error");
-          toast("Trigo.js is unavailable");
-          return false;
-        }
-
-        return true;
-      }
-
-      function run(name, callback) {
-        if (!requireTrigo()) return;
-
-        try {
-          const result = callback();
-
-          if (result && typeof result.then === "function") {
-            result.catch(error => {
-              log(name + ": " + error.message, "error");
-              toast(error.message || "Operation failed");
-            });
-          }
-        } catch (error) {
-          log(name + ": " + error.message, "error");
-          toast("Operation failed");
-        }
-      }
-
-      // Initialization
-
-      function initialize() {
-        if (typeof window.Trigo === "undefined" ||
-            !window.Trigo.version) {
-          $("#libraryStatus").textContent = "LIBRARY NOT READY";
-          $("#playgroundStatus").textContent = "Unavailable";
-          $("#statusDot").style.background = "#d44848";
-          log("Trigo.js could not be initialized.", "error");
-          return;
-        }
-
-        t = window.Trigo;
-        window.t = t;
-
-        $("#version").textContent = t.version;
-        $("#device").textContent =
-          t.is.mobile ? "Mobile" : "Desktop";
-
-        $("#libraryStatus").textContent =
-          "TRIGO.JS INITIALIZED";
-
-        $("#playgroundStatus").textContent =
-          "Library ready";
-
-        $("#statusDot").style.background = "#16875b";
-
-        log("Trigo.js v" + t.version + " initialized.", "info");
-
-        log(
-          "Device: " +
-          (t.is.mobile ? "Mobile" : "Desktop"),
-          "info"
-        );
-
-        log("Interactive environment ready.");
-      }
-
-      const script = document.querySelector(
-        'script[src*="trigo.min.js"]'
-      );
-
-      if (window.Trigo && window.Trigo.version) {
-        initialize();
-      } else if (script) {
-        script.addEventListener("load", initialize, { once: true });
-
-        script.addEventListener("error", () => {
-          $("#libraryStatus").textContent = "CDN UNAVAILABLE";
-          $("#playgroundStatus").textContent = "Offline";
-          $("#statusDot").style.background = "#d44848";
-          log("Failed to load Trigo.js CDN.", "error");
-        }, { once: true });
-      }
-
-      // Mobile navigation
-
-      const menuToggle = $("#menuToggle");
-      const navLinks = $("#navLinks");
-
-      function closeMenu() {
-        navLinks.classList.remove("mobile-open");
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        navigation.classList.remove("open");
         menuToggle.setAttribute("aria-expanded", "false");
         menuToggle.textContent = "☰";
       }
+    });
 
-      menuToggle.addEventListener("click", () => {
-        const opened = navLinks.classList.toggle("mobile-open");
-
-        menuToggle.setAttribute("aria-expanded", String(opened));
-        menuToggle.textContent = opened ? "✕" : "☰";
-      });
-
-      $$("#navLinks a").forEach(link => {
-        link.addEventListener("click", closeMenu);
-      });
-
-      document.addEventListener("keydown", event => {
-        if (event.key === "Escape") closeMenu();
-      });
-
-      // Active navigation
-
-      const sections = $$("main section[id]");
-      const navigation = $$("#navLinks a[href^='#']");
-
-      if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-
-            navigation.forEach(link => {
-              link.classList.toggle(
-                "active",
-                link.getAttribute("href") === "#" + entry.target.id
-              );
-            });
-          });
-        }, { rootMargin: "-20% 0px -65% 0px" });
-
-        sections.forEach(section => observer.observe(section));
-      }
-
-      // Copy functionality
-
-      async function copyText(text) {
-        try {
-          if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(text);
-          } else {
-            const input = document.createElement("textarea");
-
-            input.value = text;
-            input.style.position = "fixed";
-            input.style.opacity = "0";
-
-            document.body.appendChild(input);
-            input.select();
-
-            const copied = document.execCommand("copy");
-            input.remove();
-
-            if (!copied) throw new Error("Copy unavailable");
-          }
-
-          toast("Copied to clipboard");
-          log("Copied: " + text, "info");
-
-        } catch (error) {
-          toast("Unable to copy");
-          log("Clipboard error: " + error.message, "error");
-        }
-      }
-
-      document.addEventListener("click", event => {
-        const button = event.target.closest("[data-copy]");
-
-        if (!button) return;
-
-        copyText(button.dataset.copy);
-      });
-
-      // Feature search
-
-      let activeFilter = "all";
-
-      function filterFeatures() {
-        const query = $("#featureSearch").value.toLowerCase();
-        let visible = 0;
-
-        $$(".feature-card").forEach(card => {
-          const category = card.dataset.category;
-
-          const matchesCategory =
-            activeFilter === "all" || category === activeFilter;
-
-          const matchesQuery =
-            card.textContent.toLowerCase().includes(query);
-
-          const show = matchesCategory && matchesQuery;
-
-          card.hidden = !show;
-
-          if (show) visible++;
-        });
-
-        $("#emptyState").style.display =
-          visible ? "none" : "block";
-      }
-
-      $("#featureSearch").addEventListener("input", filterFeatures);
-
-      $$(".filter").forEach(button => {
-        button.addEventListener("click", () => {
-          activeFilter = button.dataset.filter;
-
-          $$(".filter").forEach(item =>
-            item.classList.toggle("active", item === button)
-          );
-
-          filterFeatures();
-        });
-      });
-
-      // Camera management
-
-      async function openCamera() {
-        if (!requireTrigo()) return;
-
-        if (cameraStreamOpen) {
-          toast("Camera is already open");
-          return;
-        }
-
-        cameraVideo = document.createElement("video");
-
-        Object.assign(cameraVideo.style, {
-          position: "fixed",
-          right: "18px",
-          bottom: "18px",
-          width: "min(280px, 75vw)",
-          zIndex: "9998",
-          borderRadius: "12px",
-          background: "#111",
-          border: "2px solid #6655db"
-        });
-
-        cameraVideo.autoplay = true;
-        cameraVideo.playsInline = true;
-
-        document.body.appendChild(cameraVideo);
+    document.querySelectorAll("[data-copy]").forEach(button => {
+      button.addEventListener("click", async () => {
+        const value = button.dataset.copy;
 
         try {
-          await t.camera.open({
-            video: cameraVideo,
-            facing: "environment"
-          });
+          await navigator.clipboard.writeText(value);
+          const original = button.textContent;
 
-          cameraStreamOpen = true;
-          log("Camera opened.", "info");
-          toast("Camera active");
-
-          cameraTimer = setTimeout(closeCamera, 8000);
-
-        } catch (error) {
-          cameraVideo.remove();
-          cameraVideo = null;
-
-          log("Camera error: " + error.message, "error");
-        }
-      }
-
-      function closeCamera() {
-        clearTimeout(cameraTimer);
-
-        if (t && cameraStreamOpen) {
-          try {
-            t.camera.close();
-          } catch (error) {
-            log("Camera cleanup: " + error.message, "warn");
-          }
-        }
-
-        if (cameraVideo) {
-          cameraVideo.remove();
-          cameraVideo = null;
-        }
-
-        cameraStreamOpen = false;
-        log("Camera closed.", "info");
-      }
-
-      // Feature actions
-
-      const actions = {
-
-        vibrate: () => run("Vibration", () => t.vibrate(200)),
-        sos: () => run("SOS", () => t.vibrate.sos()),
-        heartbeat: () => run("Heartbeat", () => t.vibrate.heartbeat()),
-
-        flashlight: () => run("Flashlight", () => t.flashlight.toggle()),
-        flashblink: () => run("Flashlight blink", () => t.flashlight.blink({ count: 5 })),
-        flashsos: () => run("Flashlight SOS", () => t.flashlight.sos()),
-
-        camera: openCamera,
-
-        mic: () => run("Microphone", () =>
-          t.microphone.record({ duration: 3000 }).then(result => {
-            log("Recording completed: " + result.size + " bytes.", "info");
-          })
-        ),
-
-        location: () => run("Location", () =>
-          t.location.get().then(position => {
-            log(
-              "Position: " +
-              position.latitude.toFixed(5) + ", " +
-              position.longitude.toFixed(5),
-              "info"
-            );
-          })
-        ),
-
-        speed: () => run("Speed", () =>
-          t.location.speed().then(result => {
-            log("Speed: " + result.speedKmh + " km/h", "info");
-          })
-        ),
-
-        clipboard: () => run("Clipboard", () =>
-          t.clipboard.copy("Hello from Trigo.js!")
-        ),
-
-        share: () => run("Share", () =>
-          t.share.url({
-            url: location.href,
-            title: "Trigo.js"
-          })
-        ),
-
-        notify: () => run("Notification", () =>
-          t.notify("Hello!", {
-            body: "A notification from Trigo.js.",
-            icon: "./trigo.png"
-          })
-        ),
-
-        schedule: () => run("Scheduled notification", () =>
-          t.notify.schedule("Hello!", 3000, {
-            body: "Scheduled by Trigo.js."
-          })
-        ),
-
-        fullscreen: () => run("Fullscreen", () =>
-          t.fullscreen.enter()
-        ),
-
-        exitfullscreen: () => run("Fullscreen exit", () =>
-          t.fullscreen.exit()
-        ),
-
-        nfcinfo: () => {
-          const supported = "NDEFReader" in window;
-          log("Web NFC available: " + supported, "info");
-          toast(supported ? "Web NFC detected" : "Web NFC unsupported");
-        },
-
-        btinfo: () => {
-          const supported = "bluetooth" in navigator;
-          log("Web Bluetooth available: " + supported, "info");
-          toast(supported ? "Bluetooth API detected" : "Bluetooth unsupported");
-        },
-
-        fadein: () => run("Fade in", () => t.fade.in("#demoBox", 800)),
-        fadeout: () => run("Fade out", () => t.fade.out("#demoBox", 800)),
-        blink: () => run("Blink", () => t.blink("#demoBox", {
-          interval: 300,
-          count: 6
-        })),
-
-        pulse: () => run("Pulse", () => t.pulse("#demoBox", {
-          scale: 1.1,
-          count: 4
-        })),
-
-        glow: () => run("Glow", () => t.glow("#demoBox", {
-          color: "#6655db",
-          spread: 30
-        })),
-
-        shake: () => run("Shake", () => t.shake("#demoBox", {
-          intensity: 10
-        })),
-
-        bounce: () => run("Bounce", () => t.bounce("#demoBox", {
-          height: 25,
-          count: 4
-        })),
-
-        slide: () => run("Slide", () => t.slide.in("#demoBox", {
-          from: "bottom"
-        })),
-
-        zoom: () => run("Zoom", () => t.zoom.in("#demoBox", {
-          from: 0.5
-        })),
-
-        spin: () => run("Spin", () => {
-          t.spin("#demoBox", { speed: 1500 });
+          button.textContent = "Copied!";
+          showToast("Copied to clipboard");
 
           setTimeout(() => {
-            t.spin.stop("#demoBox");
-          }, 4000);
-        }),
-
-        reveal: () => run("Reveal", () =>
-          t.reveal(".feature-card", { animation: "fadeUp" })
-        ),
-
-        holographic: () => run("Holographic", () => {
-          t.holographic("#demoBox", {
-            maxTilt: 20,
-            glare: true,
-            colorShift: true
-          });
-
-          log("Move your pointer over the preview.", "info");
-        }),
-
-        typewriter: () => run("Typewriter", () =>
-          t.typewriter("#demoBox", {
-            text: "Hello from Trigo.js!",
-            speed: 40
-          })
-        ),
-
-        scramble: () => run("Scramble", () =>
-          t.scramble("#demoBox", {
-            text: "Trigo.js Rocks!",
-            duration: 1500
-          })
-        ),
-
-        gradient: () => run("Gradient", () =>
-          t.gradient("#demoBox", {
-            colors: ["#6655db", "#3271cf", "#16875b"],
-            duration: 4000
-          })
-        ),
-
-        parallax: () => run("Parallax", () =>
-          t.parallax(".feature-card", { speed: 0.3 })
-        ),
-
-        confetti: () => run("Confetti", () =>
-          t.confetti({ count: 80, spread: 120 })
-        ),
-
-        confettix3: () => run("Triple confetti", () => {
-          t.confetti({ count: 30 });
-
-          setTimeout(() => {
-            t.confetti({
-              count: 30,
-              origin: { x: 0.7, y: 0.5 }
-            });
-          }, 300);
-
-          setTimeout(() => {
-            t.confetti({
-              count: 30,
-              origin: { x: 0.5, y: 0.3 }
-            });
-          }, 600);
-        }),
-
-        particles: () => run("Particles", () =>
-          t.particles({
-            count: 80,
-            color: "#6655db",
-            connectDistance: 120,
-            interactive: true
-          })
-        ),
-
-        stopparticles: () => run("Stop particles", () =>
-          t.particles.stopAll()
-        ),
-
-        snow: () => run("Snow", () =>
-          t.snow({ count: 80, speed: 1.5 })
-        ),
-
-        stopsnow: () => run("Stop snow", () =>
-          t.snow.stopAll()
-        ),
-
-        fire: () => run("Fire", () =>
-          t.fire({ count: 60, intensity: 1 })
-        ),
-
-        stopfire: () => run("Stop fire", () =>
-          t.fire.stopAll()
-        ),
-
-        speak: () => run("Speech synthesis", () =>
-          t.speak(
-            "Welcome to Trigo.js. The web, within reach.",
-            { rate: 1 }
-          )
-        ),
-
-        stopspeak: () => run("Stop speech", () =>
-          t.speak.stop()
-        ),
-
-        listen: () => run("Speech recognition", () =>
-          t.listen({ continuous: false }).then(result => {
-            log('Recognized: "' + result.text + '"', "info");
-          })
-        ),
-
-        stoplisten: () => run("Stop recognition", () =>
-          t.listen.stop()
-        ),
-
-        beep: () => run("Beep", () =>
-          t.beep({ frequency: 800, duration: 200 })
-        ),
-
-        melody: () => run("Melody", () => {
-          const notes = [
-            523, 587, 659, 698,
-            784, 880, 988, 1047
-          ];
-
-          notes.forEach((frequency, index) => {
-            setTimeout(() => {
-              t.beep({
-                frequency,
-                duration: 150
-              });
-            }, index * 150);
-          });
-        }),
-
-        democonfetti: () => run("Demo confetti", () =>
-          t.confetti({
-            count: 40,
-            spread: 70,
-            origin: { x: 0.5, y: 0.5 }
-          })
-        ),
-
-        demopulse: () => run("Demo pulse", () =>
-          t.pulse("#demoBox", {
-            scale: 1.08,
-            count: 2
-          })
-        ),
-
-        demoshake: () => run("Demo shake", () =>
-          t.shake("#demoBox", { intensity: 10 })
-        ),
-
-        demoreset: () => {
-          closeCamera();
-          demoBox.innerHTML = `
-            <div>
-              <div style="font-size:27px">✦</div>
-              <div>Click to interact</div>
-              <small>Powered by Trigo.js</small>
-            </div>
-          `;
-
-          log("Demo preview reset.", "info");
-        }
-      };
-
-      // Delegate feature buttons
-
-      document.addEventListener("click", event => {
-        const button = event.target.closest("[data-action]");
-
-        if (!button) return;
-
-        const action = actions[button.dataset.action];
-
-        if (action) action();
-      });
-
-      // Playground click and keyboard
-
-      function triggerDemo() {
-        if (!requireTrigo()) return;
-
-        run("Playground", () => {
-          t.confetti({
-            count: 40,
-            spread: 70,
-            origin: { x: 0.5, y: 0.5 }
-          });
-
-          t.pulse(demoBox, {
-            scale: 1.05,
-            count: 2
-          });
-
-          log("Playground interaction executed.", "info");
-        });
-      }
-
-      demoBox.addEventListener("click", triggerDemo);
-
-      demoBox.addEventListener("keydown", event => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          triggerDemo();
+            button.textContent = original;
+          }, 1500);
+        } catch {
+          showToast("Clipboard access is unavailable");
         }
       });
+    });
 
-      // Console controls
-
-      $("#clearConsole").addEventListener("click", () => {
-        consoleArea.innerHTML = "";
-        log("Console cleared.", "dim");
+    if (window.hljs) {
+      document.querySelectorAll("pre code").forEach(block => {
+        hljs.highlightElement(block);
       });
-
-      // Cleanup
-
-      window.addEventListener("pagehide", closeCamera);
-
-      // Footer
-
-      $("#year").textContent = new Date().getFullYear();
-
-    })();
+    }
   </script>
-
 </body>
 </html>
